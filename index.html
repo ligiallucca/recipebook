@@ -8,6 +8,21 @@
 </head>
 <body>
     <h1>Recipe</h1>
+    <form class="form-register">
+        <h2>Insira seus dados pessoais</h2>
+        <label for="sentence">Nome:</label>
+        <input type="text" name="user-name" class="text-box" id="user-name" placeholder="Digite seu nome aqui" required>
+        <label for="sentence">Sobrenome:</label>
+        <input type="text" name="user-last-name" class="text-box" id="user-last-name" placeholder="Digite seu sobrenome aqui" required>
+        <label for="sentence">Data de Nascimento:</label>
+        <input type="date" name="birthday" class="text-box" id="birthday" placeholder="Digite sua data de nascimento aqui" required>
+        <label for="sentence">e-mail:</label>
+        <input type="email" name="user-email" class="text-box" id="user-email" placeholder="Digite seu e-mail aqui" required>
+        <label for="sentence">senha:</label>
+        <input type="password" name="password" class="text-box" id= "user-password" placeholder="Digite sua senha aqui" required>
+        <button type="button" name="button" form="form-register" id=register-button>Cadastrar</button>
+    </form>
+    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
     
 </body>
 </html>
