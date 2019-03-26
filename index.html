@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Recipebook</title>
+    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+    <script src="script_jquery.js"></script>
 </head>
 <body>
     <h1>Recipe</h1>
@@ -17,12 +21,23 @@
         <label for="sentence">Data de Nascimento:</label>
         <input type="date" name="birthday" class="text-box" id="birthday" placeholder="Digite sua data de nascimento aqui" required>
         <label for="sentence">e-mail:</label>
+        <input type="email" name="user-email" class="text-box" id="register-user-email" placeholder="Digite seu e-mail aqui" required>
+        <label for="sentence">senha:</label>
+        <input type="password" name="password" class="text-box" id="register-user-password" placeholder="Digite sua senha aqui" required>
+        <button type="button" name="button-register" form="form-register" id="register-button">Cadastrar</button>
+    </form>
+    <form class="form-sigin">
+        <h2>Entrar na sua conta</h2>
+        <label for="sentence">E-mail:</label>
         <input type="email" name="user-email" class="text-box" id="user-email" placeholder="Digite seu e-mail aqui" required>
         <label for="sentence">senha:</label>
         <input type="password" name="password" class="text-box" id= "user-password" placeholder="Digite sua senha aqui" required>
-        <button type="button" name="button" form="form-register" id=register-button>Cadastrar</button>
+        <button type="button" name="button-enter" form="form-enter" id="enter-button">Entrar</button>
     </form>
-    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
-    
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" 
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
+        crossorigin="anonymous"></script>
+    <script src="jquery.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
