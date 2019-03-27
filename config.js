@@ -1,10 +1,10 @@
-// Initialize Firebase
-let config = {
-    apiKey: "AIzaSyDO2aWGobByGVi87gqu5-CACqmXvWtY3dQ",
-    authDomain: "projeto-teste-aec44.firebaseapp.com",
-    databaseURL: "https://projeto-teste-aec44.firebaseio.com",
-    projectId: "projeto-teste-aec44",
-    storageBucket: "projeto-teste-aec44.appspot.com",
-    messagingSenderId: "653790958597"
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAG9aZNftX5d1TDcfRNOVeL2-tE7yZoOOs",
+    authDomain: "recipebook-squad4.firebaseapp.com",
+    databaseURL: "https://recipebook-squad4.firebaseio.com",
+    projectId: "recipebook-squad4",
+    storageBucket: "recipebook-squad4.appspot.com",
+    messagingSenderId: "744496946691"
   };
   firebase.initializeApp(config);
