@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recipebook</title>
+    <script
+    src="http://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
+    <script src="config.js"></script>
+</head>
+<body>
+    <form class="form-sigin">
+        <h2>Entrar na sua conta</h2>
+        <label for="sentence">E-mail:</label>
+        <input type="email" name="user-email" class="text-box" id="user-email" placeholder="Digite seu e-mail aqui" required>
+        <label for="sentence">senha:</label>
+        <input type="password" name="password" class="text-box" id= "user-password" placeholder="Digite sua senha aqui" required>
+        <button type="button" name="button-enter" form="form-enter" id="register-button">Cadastrar</button>
+        <button type="button" name="button-google" form="form-google" id="google-button">Login com Google</button>
+        <button type="button" name="button-facebook" form="form-facebook" id="facebook-button">Login com Facebook</button>
+    </form>  
+   
+    <script src="login.js"></script> 
+</body>
+</html>
