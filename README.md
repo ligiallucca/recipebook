@@ -37,12 +37,12 @@ Todos são propensos a serem usuários do Recipe Book, pois se alimentar é algo
 ## Necessidades dos Usuários
 Fizemos uma pesquisa com várias pessoas para descobrir quais seriam seus interesses em uma rede social com o tema de Alimentação. 
 Recebemos várias sugestões do que eles precisariam que tivesse na rede social.
-![sugestoes](img/Sugestoes_rede_social.png)
+![sugestoes](src/img/Sugestoes_rede_social.png)
 
 Percebemos que os usuários tem interesse em uma alimentação saudável, ter receitas para poder seguir, dietas e receitas rápidas. Além de poder se comunicar com os outros usuários e poder colaborar para dizer se a receita funciona.
 
 ## Problemas que resolvemos para os usuários nessa Rede Social
 
 ## Personas
-![persona](img/PersonaCarlos.pdf)
-![persona](img/PersonaIzabelle.pdf)
+![persona](src/img/PersonaCarlos.pdf)
+![persona](src/img/PersonaIzabelle.pdf)

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +8,10 @@
     <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
-    <script src="script_jquery.js"></script>
+    <script src="src/config.js"></script>
 </head>
 <body>
-    <h1>Recipe</h1>
+    <h1>Recipebook</h1>
     <form class="form-register">
         <h2>Insira seus dados pessoais</h2>
         <label for="sentence">Nome:</label>
@@ -33,11 +33,13 @@
         <label for="sentence">senha:</label>
         <input type="password" name="password" class="text-box" id= "user-password" placeholder="Digite sua senha aqui" required>
         <button type="button" name="button-enter" form="form-enter" id="enter-button">Entrar</button>
+        <button type="button" name="button-google" form="form-google" id="google-button">Login com Google</button>
+        <button type="button" name="button-facebook" form="form-facebook" id="facebook-button">Login com Facebook</button>
     </form>
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" 
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
         crossorigin="anonymous"></script>
-    <script src="jquery.js"></script>
-    <script src="main.js"></script>
+    <script src="src/jquery.js"></script>
+    <script src="src/main.js"></script>
 </body>
 </html>
