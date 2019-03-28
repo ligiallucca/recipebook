@@ -11,20 +11,21 @@
     crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
-    <script src="config.js"></script>
+    <script src="src/config/config.js"></script>
 </head>
 <body>
-    <form class="form-sigin">
+    <form class="form-signin">
         <h2>Entrar na sua conta</h2>
         <label for="sentence">E-mail:</label>
-        <input type="email" name="user-email" class="text-box" id="user-email" placeholder="Digite seu e-mail aqui" required>
+        <input type="email" class="text-box" id="user-email" placeholder="Digite seu e-mail aqui" required>
         <label for="sentence">senha:</label>
-        <input type="password" name="password" class="text-box" id= "user-password" placeholder="Digite sua senha aqui" required>
-        <button type="button" name="button-enter" form="form-enter" id="register-button">Cadastrar</button>
-        <button type="button" name="button-google" form="form-google" id="google-button">Login com Google</button>
-        <button type="button" name="button-facebook" form="form-facebook" id="facebook-button">Login com Facebook</button>
+        <input type="password" class="text-box" id= "user-password" placeholder="Digite sua senha aqui" required>
+        <button type="button" id="enter-button">Entrar</button>
+        <button type="button" id="google-button">Login com Google</button>
+        <button type="button" id="facebook-button">Login com Facebook</button>
+        <button type="button" id="register-button">Cadastrar</button>
     </form>  
    
-    <script src="login.js"></script> 
+    <script src="src/login/login.js"></script> 
 </body>
 </html>

@@ -9,25 +9,12 @@ $(document).ready(function() {
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function(){
-
+        window.location = "../home-page/home-page.html"
       })  
       .cath(function(error) {
         let errorCode = error.code;
         let errorMessage = error.message;
-        alert(errorMessage);
+        alert(errorCode, errorMessage);
       });
-  })
-  $("#enter-button").click(function(event) {
-    event.preventDefault();
-
-    let email = $("#user-email").val();
-    let password = $("#user-password").val();
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-    .cath(function(error) {
-      let errorCode = error.code;
-      let errorMessage = error.message;
-      alert(errorMessage);
-    });
   })
 });
