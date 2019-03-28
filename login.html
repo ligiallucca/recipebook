@@ -35,11 +35,15 @@
             </div>
             <input type="password" class="form-control" id="user-password" placeholder="Digite sua senha" required>
           </div>
+          <div>  
+            <button type="button" class="btn btn-link" id="forget-password"> Esqueceu a senha? </button>
+          </div>
 
           <div class="buttons">
             <button type="button" class="btn btn-danger col-md-6 offset-md-3 " id="enter-button">Entrar</button>
             <button type="button" class="btn btn-info col-md-6 offset-md-3 " id="google-button">Login com Google</button>
             <button type="button" class="btn btn-primary col-md-6 offset-md-3 " id="facebook-button">Login com Facebook</button>
+            <span id="status"></span>
             <fb:login-button 
               scope="public_profile,email"
               onlogin="checkLoginState();">
@@ -51,5 +55,7 @@
     </form>
   </div>
   <script src="src/login/login.js"></script> 
+  <script src="src/login/google.js"></script> 
+  <script src="src/login/facebook.js"></script> 
 </body>
 </html>
