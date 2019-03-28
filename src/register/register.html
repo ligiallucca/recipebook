@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Recipebook</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css" />
     <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
-    <script src="src/config.js"></script>
+    <script src="/src/config/config.js"></script>
+    <title>Recipebook</title>
 </head>
 <body>
     <h1>Recipebook</h1>
@@ -25,21 +26,9 @@
         <label for="sentence">senha:</label>
         <input type="password" name="password" class="text-box" id="register-user-password" placeholder="Digite sua senha aqui" required>
         <button type="button" name="button-register" form="form-register" id="register-button">Cadastrar</button>
-    </form>
-    <form class="form-sigin">
-        <h2>Entrar na sua conta</h2>
-        <label for="sentence">E-mail:</label>
-        <input type="email" name="user-email" class="text-box" id="user-email" placeholder="Digite seu e-mail aqui" required>
-        <label for="sentence">senha:</label>
-        <input type="password" name="password" class="text-box" id= "user-password" placeholder="Digite sua senha aqui" required>
-        <button type="button" name="button-enter" form="form-enter" id="enter-button">Entrar</button>
-        <button type="button" name="button-google" form="form-google" id="google-button">Login com Google</button>
-        <button type="button" name="button-facebook" form="form-facebook" id="facebook-button">Login com Facebook</button>
-    </form>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" 
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
-        crossorigin="anonymous"></script>
-    <script src="src/jquery.js"></script>
-    <script src="src/main.js"></script>
+    </form>    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="register.js"></script>
 </body>
 </html>
