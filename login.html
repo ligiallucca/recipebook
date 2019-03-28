@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Recipebook</title>
+    <link rel="stylesheet" href="src/main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script
     src="http://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -12,20 +13,34 @@
     <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-auth.js"></script>
     <script src="src/config/config.js"></script>
+    <title>Recipebook</title>
 </head>
 <body>
-    <form class="form-signin">
-        <h2>Entrar na sua conta</h2>
-        <label for="sentence">E-mail:</label>
-        <input type="email" class="text-box" id="user-email" placeholder="Digite seu e-mail aqui" required>
-        <label for="sentence">senha:</label>
-        <input type="password" class="text-box" id= "user-password" placeholder="Digite sua senha aqui" required>
-        <button type="button" id="enter-button">Entrar</button>
-        <button type="button" id="google-button">Login com Google</button>
-        <button type="button" id="facebook-button">Login com Facebook</button>
-        <button type="button" id="register-button">Cadastrar</button>
-    </form>  
-   
-    <script src="src/login/login.js"></script> 
+  <div class="container">
+    <div class="card bg-light mb-3" style="max-width: 26rem;">
+      <div class="card-header">Entrar na sua Conta</div>
+      <div class="card-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">E-mail</span>
+          </div>
+          <input type="email" class="form-control" id="user-email" placeholder="Digite seu e-mail aqui" required>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Senha</span>
+          </div>
+          <input type="password" class="form-control" id="user-password" placeholder="Digite sua senha aqui" required>
+        </div>
+        <div class="buttons">
+          <button type="button" class="btn btn-danger" id="enter-button">Entrar</button>
+          <button type="button" class="btn btn-info" id="google-button">Login com Google</button>
+          <button type="button" class="btn btn-primary" id="facebook-button">Login com Facebook</button>
+          <button type="button" class="btn btn-link" id="register-button">Não tem conta? Cadastre-se </button>
+        </div>  
+      </div>
+    </div>
+  </div>
+  <script src="src/login/login.js"></script> 
 </body>
 </html>
