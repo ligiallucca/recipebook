@@ -3,21 +3,24 @@ $(document).ready(function() {
     event.preventDefault();
     window.location = "/src/register/register.html"
   });  
-
+  
   $("#enter-button").click(function(event) {
     event.preventDefault();
-   
+    
     let email = $("#user-email").val();
     let password = $("#user-password").val();
-   
+    
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function(){
       window.location = "/src/post/post.html"
+      
     })
-    .cath(function(error) {
-      let errorCode = error.code;
-      let errorMessage = error.message;
-      alert(errorCode, errorMessage);
+    .catch(function() {
+      $("#invalid-email-password").html("E-mail ou senha inválidos.")
     });
+  })
+
+  $("#forget-password").click(function(){
+    window.location = "/src/login/password.html"
   })
 });
