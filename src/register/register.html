@@ -16,78 +16,78 @@
 <body>
     <h1 class="page-header">Recipebook</h1>
 
-    <div class="card bg-light mb-3" style="max-width: 70rem;">
+    <div class="card bg-light mb-3" style="max-width: 80rem;">
             <div class="card-header">Dados Cadastrais</div>
             <div class="card-body">
-                
+              <form>
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationServer01">Primeiro Nome</label>
+                    <input type="text" class="form-control is-valid" id="validationServer01" placeholder="Nome" value="" required>
+                    <div class="valid-feedback">
+                      Está correto!
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationServer02">Sobrenome</label>
+                    <input type="text" class="form-control is-valid" id="validationServer02" placeholder="Sobrenome" value="" required>
+                    <div class="valid-feedback">
+                      Está correto!
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationServerUsername">Username</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                      </div>
+                      <input type="text" class="form-control is-invalid" id="validationServerUsername" placeholder="Username" aria-describedby="inputGroupPrepend3" required>
+                      <div class="invalid-feedback">
+                       Por favor, preencha um username
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-3 mb-3">
+                    <label for="validationServer03">Data de Nascimento</label>
+                    <input type="date" class="form-control is-invalid" id="validationServer03" placeholder="Data de Nascimento" required>
+                    <div class="invalid-feedback">
+                      Por favor, preencha sua data de nascimento.
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="validationServer04">E-mail</label>
+                    <input type="email" class="form-control is-invalid" id="validationServer04" placeholder="E-mail" required>
+                    <div class="invalid-feedback">
+                      Por favor, preencha seu e-mail.
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationServer05">Senha</label>
+                    <input type="password" class="form-control is-invalid" id="validationServer05" placeholder="Senha" required>
+                    <div class="invalid-feedback">
+                      Por favor, cadastre uma senha.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+                    <label class="form-check-label" for="invalidCheck3">
+                      Aceito os termos e condições.
+                    </label>
+                    <div class="invalid-feedback">
+                      Você deve concordar antes de enviar.
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+              </form>
               
             </div>
           </div>
-    <form>
-            <div class="form-row">
-              <div class="col-md-4 mb-3">
-                <label for="validationServer01">Primeiro Nome</label>
-                <input type="text" class="form-control is-valid" id="validationServer01" placeholder="Nome" value="" required>
-                <div class="valid-feedback">
-                  Está correto!
-                </div>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label for="validationServer02">Sobrenome</label>
-                <input type="text" class="form-control is-valid" id="validationServer02" placeholder="Sobrenome" value="" required>
-                <div class="valid-feedback">
-                  Está correto!
-                </div>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label for="validationServerUsername">Username</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend3">@</span>
-                  </div>
-                  <input type="text" class="form-control is-invalid" id="validationServerUsername" placeholder="Username" aria-describedby="inputGroupPrepend3" required>
-                  <div class="invalid-feedback">
-                   Por favor, preencha um username
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col-md-3 mb-3">
-                <label for="validationServer03">Data de Nascimento</label>
-                <input type="date" class="form-control is-invalid" id="validationServer03" placeholder="Data de Nascimento" required>
-                <div class="invalid-feedback">
-                  Por favor, preencha sua data de nascimento.
-                </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="validationServer04">E-mail</label>
-                <input type="email" class="form-control is-invalid" id="validationServer04" placeholder="E-mail" required>
-                <div class="invalid-feedback">
-                  Por favor, preencha seu e-mail.
-                </div>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="validationServer05">Zip</label>
-                <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
-                <div class="invalid-feedback">
-                  Please provide a valid zip.
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
-                <label class="form-check-label" for="invalidCheck3">
-                  Aceito os termos e condições.
-                </label>
-                <div class="invalid-feedback">
-                  Você deve concordar antes de enviar.
-                </div>
-              </div>
-            </div>
-            <button class="btn btn-primary" type="submit">Cadastrar</button>
-          </form>
+   
     <!-- <form class="form-register">
         <div class="form-row">
             <div class="form-group col-md-12">
