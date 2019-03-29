@@ -29,7 +29,9 @@
             </div>
             <input type="email" class="form-control" id="user-email" placeholder="Digite seu e-mail" required>
           </div>
-
+          <div>
+            <p id="invalid-email" class="alert-invalid"></p>
+          </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">Senha</span>
@@ -37,6 +39,7 @@
             <input type="password" class="form-control" id="user-password" placeholder="Digite sua senha" required>
           </div>
           <div>  
+            <p id="invalid-email-password" class="alert-invalid"></p>
             <button type="button" class="btn btn-link" id="forget-password"> Esqueceu a senha? </button>
           </div>
 
@@ -44,11 +47,6 @@
             <button type="button" class="btn btn-danger col-md-6 offset-md-3 " id="enter-button">Entrar</button>
             <button type="button" class="btn btn-info col-md-6 offset-md-3 " id="google-button">Login com Google</button>
             <button type="button" class="btn btn-primary col-md-6 offset-md-3 " id="facebook-button">Login com Facebook</button>
-            <span id="status"></span>
-            <fb:login-button 
-              scope="public_profile,email"
-              onlogin="checkLoginState();">
-            </fb:login-button>
             <button type="button" class="btn btn-link" id="register-button">Não tem conta? Cadastre-se </button>
           </div>  
         </div>
