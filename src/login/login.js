@@ -12,7 +12,7 @@ $(document).ready(function() {
    
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function(){
-      window.location = "/src/home-page/home-page.html"
+      window.location = "/src/post/post.html"
     })
     .cath(function(error) {
       let errorCode = error.code;

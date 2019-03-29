@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function(){
-        window.location = "../home-page/home-page.html"
+        window.location = "/src/post/post.html"
       })  
       .cath(function(error) {
         let errorCode = error.code;
