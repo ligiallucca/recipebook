@@ -1,6 +1,17 @@
 let database = firebase.database();
 
 $(document).ready(function(){
+    database.ref('/posts/').once('value').then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            //var childKey = childSnapshot.key;
+            var childData = childSnapshot.val();
+            console.log(childData.text)//to fix
+            $("#post-list").append(`<li>${childData.text}</li>`)
+            // ...
+          });
+        });
+        //let username = (snapshot.val() && snapshot.val().username)
+    });
     $("#send-button").click(function(event){
         event.preventDefault();
 
@@ -8,10 +19,7 @@ $(document).ready(function(){
         $("#post-input").val("");
         $("#post-list").append(`<li>${text}</li>`);
 
-        database.ref('posts/' + "123").set({
-            text: text,
-            email: email,
-            profile_picture : imageUrl
-          });
-    })
-});
+        database.ref('posts/').push({
+            text: text   
+        });
+    });
