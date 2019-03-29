@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +16,10 @@
     <script src="../config/config.js"></script>
     <title>Recipebook</title>
 </head>
-<body>
-  <div class="container">
-    <form action="" method="POST" name="formulario" class="col-md-6 offset-md-3 ">
-      <div class="card bg-light mb-3" style="max-width: 26rem;">
+<body class="h-100">
+  <div class="container h-100">
+    <form action="" method="POST" name="formulario" class=" mt-5 col-md-6 offset-md-3">
+      <div class="card mt-5 bg-light mb-3" style="max-width: 26rem;">
         <div class="card-header">Entrar na sua Conta</div>
         <div class="card-body">
 
@@ -35,11 +36,15 @@
             </div>
             <input type="password" class="form-control" id="user-password" placeholder="Digite sua senha" required>
           </div>
+          <div>  
+            <button type="button" class="btn btn-link" id="forget-password"> Esqueceu a senha? </button>
+          </div>
 
           <div class="buttons">
             <button type="button" class="btn btn-danger col-md-6 offset-md-3 " id="enter-button">Entrar</button>
             <button type="button" class="btn btn-info col-md-6 offset-md-3 " id="google-button">Login com Google</button>
             <button type="button" class="btn btn-primary col-md-6 offset-md-3 " id="facebook-button">Login com Facebook</button>
+            <span id="status"></span>
             <fb:login-button 
               scope="public_profile,email"
               onlogin="checkLoginState();">
