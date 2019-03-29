@@ -8,7 +8,7 @@ $(document).ready(function() {
 		.then(function(result) {
 			let token = result.credential.accessToken;
 			let user = result.user;
-			window.location = "/src/home-page/home-page.html";
+			window.location = "/src/post/post.html";
 			
 		}).catch(function(error) {
 			let errorCode = error.code;
