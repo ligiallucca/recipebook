@@ -25,6 +25,7 @@ $(document).ready(function(){
         console.log(newPostKey.key);
         
         createPost(text);
+        //só para eu conseguir commitar =D
         
     
     });
