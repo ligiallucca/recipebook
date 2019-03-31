@@ -1,7 +1,9 @@
 let database = firebase.database();
 
 $(document).ready(function(){
-    database.ref('/posts/').once('value').then(function(snapshot) {
+    database.ref('/posts/')
+    .once('value')
+    .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             var childKey = childSnapshot.key;
             var childData = childSnapshot.val();
@@ -10,7 +12,6 @@ $(document).ready(function(){
           
         });
         });
-        //let username = (snapshot.val() && snapshot.val().username)
     });
     $("#send-button").click(function(event){
         event.preventDefault();
