@@ -3,12 +3,12 @@ let database = firebase.database();
 $(document).ready(function(){
     database.ref('/posts/').once('value').then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-            //var childKey = childSnapshot.key;
+            var childKey = childSnapshot.key;
             var childData = childSnapshot.val();
-            console.log(childData.text)//to fix
-            $("#post-list").append(`<li>${childData.text}</li>`)
-            // ...
-          });
+            createPost(childData.text, childKey)
+           // $("#post-list").append(`<li>${childData.text}</li>`)
+          
+        });
         });
         //let username = (snapshot.val() && snapshot.val().username)
     });
@@ -17,9 +17,28 @@ $(document).ready(function(){
 
         let text = $("#post-input").val();
         $("#post-input").val("");
-        $("#post-list").append(`<li>${text}</li>`);
-
-        database.ref('posts/').push({
+        
+        let newPostKey = database.ref('posts').push({
             text: text   
-        });
+        }); 
+
+        console.log(newPostKey.key);
+        
+        createPost(text);
+        
+    
     });
+
+    function createPost(text, key){
+        $("#post-list").append(`
+        <li>
+            <span>${text}</span>
+            <button class="delete-button" data-id="${key}">Excluir</button>
+        </li>
+        `);
+    
+
+    $(`button[data-id=${key}]`).click(function(){
+        console.log(text);
+    })
+    }
