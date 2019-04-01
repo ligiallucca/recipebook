@@ -1,10 +1,5 @@
 $(document).ready(function() {
-  $("#register-button").click(function(event) {
-    event.preventDefault();
-    window.location = "/src/register/register.html"
-  });  
-  
-  $("#enter-button").click(function(event) {
+    $("#enter-button").click(function(event) {
     event.preventDefault();
     
     let email = $("#user-email").val();
