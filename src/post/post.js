@@ -6,18 +6,6 @@ $(document).ready(function(){
     $("#send-button").click(addPostsClick);
 });         
 
-function getPostsBD(){
-    database.ref('/users/'+ USER_ID).once('value')
-    .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-            
-            let childKey = childSnapshot.key;
-            let childData = childSnapshot.val();
-            
-            createListPost(childData.text, childKey);
-        });
-    });         
-}
 
 function addPostsClick(event){
     event.preventDefault();
@@ -35,6 +23,19 @@ function addPostsBD(text){
     });
 }
 
+function getPostsBD(){
+    database.ref('/users/'+ USER_ID).once('value')
+    .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            
+            let childKey = childSnapshot.key;
+            let childData = childSnapshot.val();
+            
+            createListPost(childData.text, childKey);
+        });
+    });         
+}
+
 function createListPost(text, key){
     $("#post-list").append(`
     <li>
@@ -44,7 +45,7 @@ function createListPost(text, key){
     `);
     
     $(`button[data-id="${key}"]`).click(function(){
-        database.ref("users/" + USER_ID + "/" + key).remove();
+        database.ref(key).remove();
         $(this).parent().remove();
     });
 }
