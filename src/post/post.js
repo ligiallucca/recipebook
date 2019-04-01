@@ -1,12 +1,13 @@
 let database = firebase.database();
+let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
 $(document).ready(function(){
-    database.ref('/posts/')
-    .once('value')
+    database.ref('/users/'+ USER_ID).once('value')
     .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-            var childKey = childSnapshot.key;
-            var childData = childSnapshot.val();
+
+            let childKey = childSnapshot.key;
+            let childData = childSnapshot.val();
             createPost(childData.text, childKey)
            // $("#post-list").append(`<li>${childData.text}</li>`)
           
@@ -19,7 +20,7 @@ $(document).ready(function(){
         let text = $("#post-input").val();
         $("#post-input").val("");
         
-        let newPostKey = database.ref('posts').push({
+        let newPostKey = database.ref('users/' + USER_ID).push({
             text: text   
         }); 
 
@@ -27,8 +28,6 @@ $(document).ready(function(){
         
         createPost(text);
         //só para eu conseguir commitar =D
-        
-    
     });
 
     function createPost(text, key){
