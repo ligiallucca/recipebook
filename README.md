@@ -44,5 +44,7 @@ Percebemos que os usuários tem interesse em uma alimentação saudável, ter re
 ## Problemas que resolvemos para os usuários nessa Rede Social
 
 ## Personas
-![persona](src/img/PersonaCarlos.pdf)
-![persona](src/img/PersonaIzabelle.pdf)
+![persona](src/img/PersonaPatricia.png)
+![persona](src/img/PersonaTatiana.png)
+![persona](src/img/PersonaCarlos.png)
+![persona](src/img/PersonaIzabelle.png)
