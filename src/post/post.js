@@ -1,27 +1,51 @@
 let database = firebase.database();
+let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
 $(document).ready(function(){
-    database.ref('/posts/')
-    .once('value')
-    .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-            //var childKey = childSnapshot.key;
-            var childData = childSnapshot.val();
-            console.log(childData.text)//to fix
-            $("#post-list").append(`<li>${childData.text}</li>`)
-            // ...
-        });
-    });
-    //let username = (snapshot.val() && snapshot.val().username)
+   getPostsBD();
+   $("#send-button").click(addPostsClick);
 });
-$("#send-button").click(function(event){
-    event.preventDefault();
-    
-    let text = $("#post-input").val();
+
+function getPostsBD(){
+   database.ref('/users/'+ USER_ID).once('value')
+   .then(function(snapshot) {
+       snapshot.forEach(function(childSnapshot) {
+
+           let childKey = childSnapshot.key;
+           let childData = childSnapshot.val();
+
+           createListPost(childData.text, childKey);
+       });
+   });
+}
+
+function addPostsClick(event){
+   event.preventDefault();
+
+   let newPost = $("#post-input").val();
     $("#post-input").val("");
-    $("#post-list").append(`<li>${text}</li>`);
+    let postBD = addPostsBD(newPost);
+    let postKey = postBD.getKey();
     
-    database.ref('posts/').push({
-        text: text   
-    });
-});
+    createListPost(newPost, postKey)
+}
+
+function addPostsBD(text){
+   return database.ref("users/" + USER_ID).push({
+       text: text
+   });
+}
+
+function createListPost(text, key){
+   $("#post-list").append(`
+   <li>
+   <span>${text}</span>
+   <button class="delete-button" data-id=${key}>Excluir</button>
+   </li>
+   `);
+
+   $(`button[data-id="${key}"]`).click(function(){
+       database.ref("users/" + USER_ID + "/" + key).remove();
+       $(this).parent().remove();
+   });
+}
