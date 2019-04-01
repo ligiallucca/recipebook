@@ -11,9 +11,8 @@ $(document).ready(function() {
     let password = $("#user-password").val();
     
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(function(){
-      window.location = "/src/post/post.html"
-      
+    .then(function(response){
+      window.location = "/src/post/post.html?id=" + response.user.uid;
     })
     .catch(function() {
       if (email === ""){
@@ -29,7 +28,7 @@ $(document).ready(function() {
       } else {
           $("#invalid-email-password").html("E-mail ou senha inválidos.");
         }
-      });          
+    });          
   })
 
   $("#forget-password").click(function(){
