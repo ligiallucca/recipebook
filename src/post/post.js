@@ -7,7 +7,7 @@ $(document).ready(function(){
 });
 
 function getPostsBD(){
-   database.ref('/users/'+ USER_ID).once('value')
+   database.ref('/posts/'+ USER_ID).once('value')
    .then(function(snapshot) {
        snapshot.forEach(function(childSnapshot) {
 
@@ -31,7 +31,7 @@ function addPostsClick(event){
 }
 
 function addPostsBD(text){
-   return database.ref("users/" + USER_ID).push({
+   return database.ref("posts/" + USER_ID).push({
        text: text
    });
 }
@@ -45,7 +45,7 @@ function createListPost(text, key){
    `);
 
    $(`button[data-id="${key}"]`).click(function(){
-       database.ref("users/" + USER_ID + "/" + key).remove();
+       database.ref("posts/" + USER_ID + "/" + key).remove();
        $(this).parent().remove();
    });
 }

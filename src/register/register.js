@@ -8,11 +8,17 @@ $(document).ready(function() {
 
     let email = $(".register-user-email").val();
     let password = $(".register-user-password").val();
-    let name = $(".user-name").val()
+    let name = $(".first-name").val();
+    let lastname = $(".user-last-name").val();
+    let username = $(".user-name").val();
+    // let birthday = $(".birthday")
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function(response){
         database.ref(`users/${response.user.uid}`).update({
-          name: name
+          name: name,
+          lastname: lastname,
+          username: username
+          // birthday: birthday
         })
         window.location = `/src/post/post.html?id=${response.user.uid}`
       })  
