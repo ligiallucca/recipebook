@@ -2,25 +2,25 @@ let database = firebase.database();
 let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
 $(document).ready(function(){
-    getPostsBD();
-    $("#send-button").click(addPostsClick);
-});         
-
+   getPostsBD();
+   $("#send-button").click(addPostsClick);
+});
 
 function addPostsClick(event){
-    event.preventDefault();
-    
-    let newPost = $("#post-input").val();
+   event.preventDefault();
+
+   let newPost = $("#post-input").val();
     $("#post-input").val("");
     let postBD = addPostsBD(newPost);
+    let postKey = postBD.getKey();
     
-    createListPost(newPost, postBD)
+    createListPost(newPost, postKey)
 }
 
 function addPostsBD(text){
-    return database.ref("users/" + USER_ID).push({
-        text: text
-    });
+   return database.ref("users/" + USER_ID).push({
+       text: text
+   });
 }
 
 function getPostsBD(){
@@ -50,3 +50,8 @@ function createListPost(text, key){
     });
 }
 
+   $(`button[data-id="${key}"]`).click(function(){
+       database.ref("users/" + USER_ID + "/" + key).remove();
+       $(this).parent().remove();
+   });
+}
