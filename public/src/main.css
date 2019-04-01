@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+}
+
+.btn{
+    margin: 5px;
+}
+
+.alert-invalid{
+    color: brown;
+}
+.page-header{
+    font-family: 'Vibur', cursive;
+}
