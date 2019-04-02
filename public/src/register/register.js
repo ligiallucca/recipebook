@@ -20,7 +20,7 @@ $(document).ready(function() {
           username: username
           // birthday: birthday
         })
-        window.location = `/src/post/post.html?id=${response.user.uid}`
+        window.location = `/public/src/post/post.html?id=${response.user.uid}`
       })  
       .catch(function(error) {
         let errorCode = error.code;
