@@ -6,19 +6,19 @@ $(document).ready(function() {
   $("#register-button").click(function(event) {
     event.preventDefault();
 
-    let email = $(".register-user-email").val();
-    let password = $(".register-user-password").val();
-    let name = $(".first-name").val();
-    let lastname = $(".user-last-name").val();
-    let username = $(".user-name").val();
-    // let birthday = $(".birthday")
+    let email = $("#validationServer04").val();
+    let password = $("#validationServer05").val();
+    let name = $("#validationCustom01").val();
+    let lastname = $("#validationCustom02").val();
+    let username = $("#validationServerUsername").val();
+    let birthday = $("#validationServer03").val();
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function(response){
         database.ref(`users/${response.user.uid}`).update({
           name: name,
           lastname: lastname,
-          username: username
-          // birthday: birthday
+          username: username,
+          birthday: birthday
         })
         window.location = `/public/src/post/post.html?id=${response.user.uid}`
       })  
@@ -26,6 +26,9 @@ $(document).ready(function() {
         let errorCode = error.code;
         let errorMessage = error.message;
         alert(errorCode, errorMessage);
+        if (validationCustom01 === ""){
+          $("#feedback-name").append
+        }
       });
   })
 });
