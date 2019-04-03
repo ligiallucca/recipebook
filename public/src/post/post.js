@@ -58,7 +58,7 @@ $("#exit").click(function (event) {
     event.preventDefault();
 
     firebase.auth().signOut().then(function() {
-        window.location = "/public/src/login.html";
+        window.location = "/public/src/index.html";
     }).catch(function(error) {
         alert("Erro: " + error);
     });
