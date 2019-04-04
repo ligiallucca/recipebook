@@ -23,8 +23,8 @@ function getPostsBD(){
 
 function addPostsClick(event){
     event.preventDefault();
-
-    let newPost = $("#post-input").val();
+    
+    let newPost = $("#post-text").val();
     $("#post-input").val("");
     let postBD = addPostsBD(newPost);
     let postKey = postBD.getKey();
@@ -33,13 +33,14 @@ function addPostsClick(event){
 }
 
 function addPostsBD(text){
-
-   return database.ref("posts/" + USER_ID).push({
-       text: text
-   });
+    
+    return database.ref("posts/" + USER_ID).push({
+        text: text
+    });
 }
 
 function createListPost(text, key){
+
 $("#post-list").append(`
 <li>
 <span data-text-id="${key}">${text}
@@ -71,9 +72,9 @@ $(`button[data-edit-id="${key}"]`).click(function(){
 
 $("#exit").click(function (event) {
     event.preventDefault();
-
+    
     firebase.auth().signOut().then(function() {
-        window.location = "/public/src/login.html";
+        window.location = "/public/index.html";
     }).catch(function(error) {
         alert("Erro: " + error);
     });
