@@ -38,6 +38,7 @@ function addPostsBD(text){
 }
 
 function createListPost(text, key){
+<<<<<<< Updated upstream:src/post/post.js
     console.log(text,key)
     $("#post-list").append(`
     <li>
@@ -50,4 +51,33 @@ function createListPost(text, key){
         database.ref("users/" + USER_ID + "/" + key).remove();
         $(this).parent().remove();
         });
+=======
+$("#post-list").append(`
+<li>
+<span data-text-id="${key}">${text}
+</span>
+<span>
+<button data-edit-id=${key}>Editar</button>
+</span>
+<button data-delete-id=${key}>Excluir</button>
+</li>
+`);
+
+$(`button[data-delete-id="${key}"]`).click(function(){
+    database.ref("posts/" + USER_ID + "/" + key).remove();
+    $(this).parent().remove();
+});
+
+$(`button[data-edit-id="${key}"]`).click(function(){
+    let newText = prompt(`Altere o seu texto aqui: ${text}`);
+    $(`span[data-text-id=${key}]`).text(newText);
+    database.ref("posts/" + USER_ID + "/" + key).
+    update({
+        text:newText
+    })
+   
+    
+});
+
+>>>>>>> Stashed changes:public/src/post/post.js
 }
