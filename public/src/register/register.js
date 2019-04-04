@@ -30,7 +30,14 @@ $(document).ready(function() {
           birthday: birthday
         })
         window.location = `/public/src/post/post.html?id=${response.user.uid}`
-      })  
+      })  .catch(function() {
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            alert(errorCode, errorMessage);
+            if (name === ""){
+              $("#feedback-name").html("Campo não pode ficar vazio");
+              $("[data-id-name='data-name-user']").addClass("is-invalid");
+            }
     }, false);
     });
   }, false);
