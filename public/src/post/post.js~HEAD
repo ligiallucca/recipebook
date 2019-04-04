@@ -7,17 +7,18 @@ $(document).ready(function(){
 });
 
 function getPostsBD(){
-    database.ref('/users/'+ USER_ID).once('value')
+    
+    database.ref('/posts/'+ USER_ID).once('value')
     .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             
             let childKey = childSnapshot.key;
             let childData = childSnapshot.val();
-            if (childData.text != undefined){
+            
             createListPost(childData.text, childKey);
-        }
         });
     });
+    
 }
 
 function addPostsClick(event){
@@ -32,9 +33,10 @@ function addPostsClick(event){
 }
 
 function addPostsBD(text){
-    return database.ref("users/" + USER_ID).push({
-        text: text
-    });
+
+   return database.ref("posts/" + USER_ID).push({
+       text: text
+   });
 }
 
 function createListPost(text, key){
@@ -66,3 +68,13 @@ $(`button[data-edit-id="${key}"]`).click(function(){
 });
 
 }
+
+$("#exit").click(function (event) {
+    event.preventDefault();
+
+    firebase.auth().signOut().then(function() {
+        window.location = "/public/src/login.html";
+    }).catch(function(error) {
+        alert("Erro: " + error);
+    });
+});
