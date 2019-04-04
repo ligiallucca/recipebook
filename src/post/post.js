@@ -38,20 +38,6 @@ function addPostsBD(text){
 }
 
 function createListPost(text, key){
-<<<<<<< Updated upstream:src/post/post.js
-    console.log(text,key)
-    $("#post-list").append(`
-    <li>
-    <span>${text}</span>
-    <button class="delete-button" data-id=${key}>Excluir</button>
-    </li>
-    `);
-
-    $(`button[data-id="${key}"]`).click(function(){
-        database.ref("users/" + USER_ID + "/" + key).remove();
-        $(this).parent().remove();
-        });
-=======
 $("#post-list").append(`
 <li>
 <span data-text-id="${key}">${text}
@@ -79,5 +65,4 @@ $(`button[data-edit-id="${key}"]`).click(function(){
     
 });
 
->>>>>>> Stashed changes:public/src/post/post.js
 }
