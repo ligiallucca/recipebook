@@ -24,7 +24,7 @@ function getPostsBD(){
 function addPostsClick(event){
     event.preventDefault();
     
-    let newPost = $("#post-input").val();
+    let newPost = $("#post-text").val();
     $("#post-input").val("");
     let postBD = addPostsBD(newPost);
     let postKey = postBD.getKey();
