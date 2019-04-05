@@ -7,24 +7,24 @@ $(document).ready(function(){
 });
 
 function getPostsBD(){
-    database.ref('/users/'+ USER_ID).once('value')
+    
+    database.ref('/posts/'+ USER_ID).once('value')
     .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             
             let childKey = childSnapshot.key;
             let childData = childSnapshot.val();
-            if (childData.text != undefined){
+            
             createListPost(childData.text, childKey);
-        }
         });
     });
+    
 }
 
 function addPostsClick(event){
     event.preventDefault();
 
-    let newPost = $("#post-input").val();
-    $("#post-input").val("");
+    let newPost = $("#post-text").val();
     let postBD = addPostsBD(newPost);
     let postKey = postBD.getKey();
     
@@ -32,12 +32,12 @@ function addPostsClick(event){
 }
 
 function addPostsBD(text){
-    return database.ref("users/" + USER_ID).push({
-        text: text
-    });
+   return database.ref("posts/" + USER_ID).push({
+       text: text
+   });
 }
 
-function createListPost(text, key){
+function createListPost(text, key, likes){
 $("#post-list").append(`
 <li>
 <span data-text-id="${key}">${text}
@@ -45,13 +45,27 @@ $("#post-list").append(`
 <span>
 <button data-edit-id=${key}>Editar</button>
 </span>
+<span>
 <button data-delete-id=${key}>Excluir</button>
+</span>
+<span>
+<button data-like-id=${key} data-like-counter=${likes || 0}>Like</button>
+</span>
+
 </li>
 `);
 
 $(`button[data-delete-id="${key}"]`).click(function(){
     database.ref("posts/" + USER_ID + "/" + key).remove();
-    $(this).parent().remove();
+    $(this).parent().parent().remove();
+});
+
+$(`button[data-like-id="${key}"]`).click(function(){
+
+    let counter = $(this).data("like-counter");
+    counter += 1;
+    $(this).data("like-counter", counter);
+    $(this).html(counter + "likes")
 });
 
 $(`button[data-edit-id="${key}"]`).click(function(){
@@ -66,3 +80,14 @@ $(`button[data-edit-id="${key}"]`).click(function(){
 });
 
 }
+
+$("#exit").click(function (event) {
+    event.preventDefault();
+
+    firebase.auth().signOut().then(function() {
+        window.location = "../../index.html";
+    }).catch(function(error) {
+        alert("Erro: " + error);
+    });
+});
+
