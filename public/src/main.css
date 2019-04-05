@@ -12,3 +12,15 @@
 .page-header{
     font-family: 'Vibur', cursive;
 }
+
+#trigger-js-carousel .item { margin: 3px; }
+#trigger-js-carousel .item img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#main {
+    display: grid;
+    grid-template-areas: "header header" "footer footer"     
+}
