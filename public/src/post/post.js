@@ -1,21 +1,27 @@
 let database = firebase.database();
 let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
-let btnSend = $("#send-button");
-let textPost = $("#post-text");
 
 $(document).ready(function(){
     getPostsBD();
     
-    textPost.keyup(function() {
-        if(textPost.val() === ""){
-            btnSend.attr("disabled", true);
+    $("#post-text").keyup(function() {
+        if($("#post-text").length === ""){
+            $("#send-button").attr("disabled", true);
         }else{
-            btnSend.attr("disabled", false);
+            $("#send-button").attr("disabled", false);
         }
     });
 
-    btnSend.click(addPostsClick);
+    $("#send-button").click(addPostsClick);
 });
+
+// $("#post-text").on('keyup',size);
+//     function size(){
+//         while ($("#post-text").scrollHeight > $("#post-text").offsetHeight)
+//         {
+//             $("#post-text").rows += 1;
+//         }
+//     }
 
 function getPostsBD(){
     database.ref('/posts/'+ USER_ID).once('value')
@@ -32,11 +38,11 @@ function getPostsBD(){
 
 function addPostsClick(event){
     event.preventDefault();
-    let newPost = textPost.val();
+    let newPost = $("#post-text").val();
     let postBD = addPostsBD(newPost);
     let postKey = postBD.getKey();
     
-    createListPost(newPost, postKey)
+    createListPost(newPost, postKey)    
 }    
 
 function addPostsBD(text){
@@ -45,32 +51,45 @@ function addPostsBD(text){
     });
 }
 
-textPost.on('keyup',size)
-function size(){
-    while (textPost.scrollHeight > textPost.offsetHeight)
-    {
-        textarea.rows += 1;
-    }
-}
-
 function createListPost(text, key, likes){
     $("#post-list").append(`
-    <article>
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-    <p data-text-id=${key}>${text}</p>
-    <span>
-    <button data-edit-id=${key}>Editar</button>
-    </span>
-    <span>
-    <button data-delete-id=${key}>Excluir</button>
-    </span>
-    <span>
-    <button data-like-id=${key} data-like-counter=${likes || 0}> Like</button>
-    </span>
-    </div>
-    </div>
-    </article>
+    <li>
+        <div class="card" style="width: 30rem;">
+            <div class="card-body">
+                <div>
+                    <span data-text-id=${key}>${text}</span>
+                </div>
+                <span>
+                    <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary"> Like</button>
+                </span>
+                <span>
+                    <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
+                </span>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    Excluir
+                </button>
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"  data-delete-id=${key}>
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Excluir Publicação</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Deseja mesmo excluir esta publicação? Se você apagar não tem como recuperar as informações novamente.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary">Apagar Publicação</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </li>
     `);
     
     $(`button[data-delete-id="${key}"]`).click(function(){
@@ -82,7 +101,7 @@ function createListPost(text, key, likes){
         let counter = $(this).data("like-counter");
         counter += 1;
         $(this).data("like-counter", counter);
-        $(this).html(counter + "likes")
+        $(this).html(counter + " likes")
     });
     
     $(`button[data-edit-id="${key}"]`).click(function(){
