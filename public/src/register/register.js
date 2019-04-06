@@ -4,7 +4,7 @@ $(document).ready(function() {
   'use strict';
   window.addEventListener('load', function() {
     let forms = $(".needs-validation");
-    let validation = Array.prototype.filter.call(forms, function(form) {
+    Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
         if (form.checkValidity() === false) {
           event.preventDefault();
@@ -36,9 +36,6 @@ $(document).ready(function() {
           
         }, false);
       })
-      
     }, false);
-    
-    console.log(validation)
   });  
 })

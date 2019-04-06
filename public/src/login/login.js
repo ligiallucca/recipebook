@@ -1,16 +1,4 @@
 $(document).ready(function() {
-  $("#trigger-js-carousel").owlCarousel({
-    autoPlay: 3000, //Set AutoPlay to 3 seconds
-    itemsCustom : [
-      [0, 2],     // menos de 450px mostra 2 itens
-      [450, 4],   // em 450px mostra 4 itens
-      [600, 7],   // em 600px mostra 7 itens
-      [700, 9],   // em 700px mostra 9 itens
-      [1000, 10], // em 1000px mostra 10 itens
-      [1200, 12], // em 1200px mostra 12 itens
-    ],
-  });
-  
   $("#enter-button").click(function(event) {
     event.preventDefault();
     
@@ -19,7 +7,7 @@ $(document).ready(function() {
     
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function(response){
-      window.location = "/public/src/post/post.html?id=" + response.user.uid;
+      window.location = "./src/post/post.html?id=" + response.user.uid;
     })
     .catch(function() {
       if (email === ""){
@@ -39,6 +27,6 @@ $(document).ready(function() {
   })
   
   $("#forget-password").click(function(){
-    window.location = "/public/src/login/password.html"
+    window.location = "./src/login/password.html"
   })
 });
