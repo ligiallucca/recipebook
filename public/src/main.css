@@ -2,13 +2,45 @@
     display: flex;
 }
 
+.cont-register {
+    justify-content: center;
+    align-items: center;
+}
+
+.text-center{
+    text-align: center!important;
+}
+
 .btn{
     margin: 5px;
 }
 
-.alert-invalid{
+.alert-invalid {
     color: brown;
 }
-.page-header{
+.page-header {
     font-family: 'Vibur', cursive;
+    font-size: 36px;
+}
+
+.card-header{
+    font-size: 16px;
+}
+
+.form-group{
+    flex: 1;
+}
+
+.color-green{
+    background-color: #2f721e;
+    border: #2f721e;
+    color: aliceblue;
+}
+
+.center {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    font-size: 18px;
 }
