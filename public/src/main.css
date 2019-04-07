@@ -44,3 +44,8 @@
     width: 100%;
     font-size: 18px;
 }
+
+.list-ul {
+    list-style-type: none;
+    }
+    

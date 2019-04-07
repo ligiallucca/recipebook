@@ -27,34 +27,44 @@ function getPostsBD(){
     database.ref('/posts/'+ USER_ID).once('value')
     .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-            
+            console.log(childSnapshot)
+            console.log(childSnapshot.val().date)
             let childKey = childSnapshot.key;
-            let childData = childSnapshot.val();
+            let childData = childSnapshot.val().text;
+            let childDate = childSnapshot.val().date;
             
             if (childData.text != undefined){
-                createListPost(childData.text, childKey);
+                createListPost(childData, childKey, childDate);
             }
         });
     });
 }
 
+function date(){
+    let dNow = new Date();
+    let localdate = dNow.getDate() + '/' + (dNow.getMonth()+1) + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes();
+    return localdate;
+}
+
 function addPostsClick(event){
     event.preventDefault();
     let newPost = $("#post-text").val();
-    $("#post-input").val("");
-    let postBD = addPostsBD(newPost);
+    $("#post-text").val("");
+    let newDate = date();
+    let postBD = addPostsBD(newPost, newDate);
     let postKey = postBD.getKey();
     
-    createListPost(newPost, postKey)    
+    createListPost(newPost, postKey, newDate)    
 }    
 
-function addPostsBD(text){
+function addPostsBD(text, newDate){
     return database.ref("posts/" + USER_ID).push({
         text: text,
+        date: newDate
     });
 }
 
-function createListPost(text, key, likes){
+function createListPost(text, key, date, likes){
     $("#post-list").append(`
     <div>
         <li>
@@ -63,6 +73,8 @@ function createListPost(text, key, likes){
                     <div>
                         <span data-text-id=${key}>${text}</span>
                     </div>
+                    <span teste=${key}>${date}</span>
+                    <div>
                     <span>
                         <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary"> Like</button>
                     </span>
@@ -72,6 +84,7 @@ function createListPost(text, key, likes){
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}">
                         Excluir
                     </button>
+                    </div>
                     <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -119,12 +132,6 @@ function createListPost(text, key, likes){
         }) 
     });
 }
-
-// function date(){
-//     let dNow = new Date();
-//     let localdate = dNow.getDate() + '/' + (dNow.getMonth()+1) + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes();
-//     return localdate;
-// }
 
 $("#exit").click(function (event) {
     event.preventDefault();
