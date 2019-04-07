@@ -45,41 +45,48 @@
                             <h5 class="card-title">Receita</h5>
                             <textarea id="post-text" type="text" class="card-text" placeholder="Digite a sua Receita"></textarea>
                             <div class="btn-group" role="group">
-                                <button id="send-button" class="btn btn-primary" disabled>Enviar</button>
-                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Modo de Exibição
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item" href="#">Privado</a>
-                                    <a class="dropdown-item" href="#">Público</a>
-                                </div>
+                                <select id="method-post" class="btn btn-success dropdown-toggle">
+                                    <option selected value="publico">Público</option>
+                                    <option value="privado">Privado</option>
+                                </select>
+                                <button id="send-button" class="btn btn-primary" disabled>Publicar</button>
+                                
+                                <!-- <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-method" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Modo de Exibição
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-method">
+                                        <button class="dropdown-item" type="button" id="btn-public">Público</button>
+                                        <button class="dropdown-item" type="button" id="btn-private">Privado</button>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>  
                     <ul id="post-list" class="list-ul"></ul>
                 </div>
             </div>
-<!--            
-            <div class="col-md-4 mb-3"></div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Receita</h5>
-                    <label>Digite o nome da Receita</label>
-                    <input class="card-subtitle mb-2 text-muted" placeholder="Nome da Receita"></input>
-                    <label>Digite os Ingredientes</label>
-                    <input class="card-text" placeholder="Ingredientes"></input>
-                    <label>Digite a Receita</label>
-                    <textarea class="card-text" placeholder="Modo de fazer"></textarea>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+            <!--            
+                <div class="col-md-4 mb-3"></div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Receita</h5>
+                        <label>Digite o nome da Receita</label>
+                        <input class="card-subtitle mb-2 text-muted" placeholder="Nome da Receita"></input>
+                        <label>Digite os Ingredientes</label>
+                        <input class="card-text" placeholder="Ingredientes"></input>
+                        <label>Digite a Receita</label>
+                        <textarea class="card-text" placeholder="Modo de fazer"></textarea>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
                 </div>
-            </div>
-        </div> -->
-    </container>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="/public/src/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/public/src/post/post.js"></script>    
-</body>
-</html>
+            </div> -->
+        </container>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="/public/src/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/public/src/post/post.js"></script>    
+    </body>
+    </html>
