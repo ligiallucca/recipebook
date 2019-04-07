@@ -31,7 +31,9 @@ function getPostsBD(){
             let childKey = childSnapshot.key;
             let childData = childSnapshot.val();
             
-            createListPost(childData.text, childKey);
+            if (childData.text != undefined){
+                createListPost(childData.text, childKey);
+            }
         });
     });
 }
@@ -39,6 +41,7 @@ function getPostsBD(){
 function addPostsClick(event){
     event.preventDefault();
     let newPost = $("#post-text").val();
+    $("#post-input").val("");
     let postBD = addPostsBD(newPost);
     let postKey = postBD.getKey();
     
@@ -47,54 +50,57 @@ function addPostsClick(event){
 
 function addPostsBD(text){
     return database.ref("posts/" + USER_ID).push({
-        text: text
+        text: text,
     });
 }
 
 function createListPost(text, key, likes){
     $("#post-list").append(`
-    <li>
-        <div class="card" style="width: 30rem;">
-            <div class="card-body">
-                <div>
-                    <span data-text-id=${key}>${text}</span>
-                </div>
-                <span>
-                    <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary"> Like</button>
-                </span>
-                <span>
-                    <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
-                </span>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                    Excluir
-                </button>
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"  data-delete-id=${key}>
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Excluir Publicação</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Deseja mesmo excluir esta publicação? Se você apagar não tem como recuperar as informações novamente.
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary">Apagar Publicação</button>
+    <div>
+        <li>
+            <div class="card" style="width: 30rem;">
+                <div class="card-body">
+                    <div>
+                        <span data-text-id=${key}>${text}</span>
+                    </div>
+                    <span>
+                        <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary"> Like</button>
+                    </span>
+                    <span>
+                        <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
+                    </span>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}">
+                        Excluir
+                    </button>
+                    <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Excluir Publicação</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>   
+                    </div>   
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
+    </div>
     `);
     
     $(`button[data-delete-id="${key}"]`).click(function(){
         database.ref("posts/" + USER_ID + "/" + key).remove();
-        $(this).parent().parent().remove();
+        $(this).parent().remove();
+        window.location.reload();   
     });
     
     $(`button[data-like-id="${key}"]`).click(function(){
