@@ -31,20 +31,22 @@ function addPostsClick(event){
     $("#post-text").val("");
     let newDate = date();
     let methodPost = $("#method-post").val();
-    let postBD = addPostsBD(newPost, newDate, methodPost);
+    let like = 0;
+    // let likes = $(button[data-like-id="${key}).val();
+    let postBD = addPostsBD(newPost, newDate, methodPost, like);
     let postKey = postBD.getKey();
     
-    createListPost(newPost, postKey, newDate, methodPost)    
+    createListPost(newPost, postKey, newDate, methodPost, like)    
 }    
 
-function addPostsBD(text, newDate, methodPost){
+function addPostsBD(text, newDate, methodPost, like){
     return database.ref("posts/" + USER_ID).push({
         text: text,
         date: newDate,
-        postMessage: methodPost
+        postMessage: methodPost,
+        likes: like
     });
 }
-
 
 function getPostsBD(){
     database.ref('/posts/'+ USER_ID).once('value')
@@ -55,8 +57,9 @@ function getPostsBD(){
             let childData = childSnapshot.val().text;
             let childDate = childSnapshot.val().date;
             let childMethod = childSnapshot.val().postMessage;
+            let childLike = childSnapshot.val().likes;
             
-            createListPost(childData, childKey, childDate, childMethod);
+            createListPost(childData, childKey, childDate, childMethod, childLike);
         });
     });
 }
@@ -73,7 +76,7 @@ function createListPost(text, key, date, methodPost, likes){
     <span teste=${key}>${date}</span>
     <div>
     <span>
-    <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary"> Like</button>
+    <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
     </span>
     <span>
     <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
@@ -99,7 +102,6 @@ function createListPost(text, key, date, methodPost, likes){
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
     <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
     </div>
-    
     </div>
     </div>
     </div>   
@@ -119,7 +121,11 @@ function createListPost(text, key, date, methodPost, likes){
         let counter = $(this).data("like-counter");
         counter += 1;
         $(this).data("like-counter", counter);
-        $(this).html(counter + " likes")
+        $(this).html(counter + " likes");
+        database.ref("posts/" + USER_ID + "/" + key).
+            update({
+                likes: counter
+            }) 
     });
     
     $(`button[data-edit-id="${key}"]`).click(function(){
