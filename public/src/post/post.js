@@ -15,27 +15,24 @@ $(document).ready(function(){
     $("#send-button").click(addPostsClick);
 });
 
-// $("#post-text").on('keyup',size);
-//     function size(){
-//         while ($("#post-text").scrollHeight > $("#post-text").offsetHeight)
-//         {
-//             $("#post-text").rows += 1;
-//         }
-//     }
+$("#post-text").on('keyup',size);
+    function size(){
+        while ($("#post-text").scrollHeight > $("#post-text").offsetHeight)
+        {
+            $("#post-text").rows += 1;
+        }
+    }
 
 function getPostsBD(){
     database.ref('/posts/'+ USER_ID).once('value')
     .then(function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-            console.log(childSnapshot)
-            console.log(childSnapshot.val().date)
+            
             let childKey = childSnapshot.key;
             let childData = childSnapshot.val().text;
             let childDate = childSnapshot.val().date;
             
-            if (childData.text != undefined){
-                createListPost(childData, childKey, childDate);
-            }
+            createListPost(childData, childKey, childDate);
         });
     });
 }
@@ -65,7 +62,7 @@ function addPostsBD(text, newDate){
 }
 
 function createListPost(text, key, date, likes){
-    $("#post-list").append(`
+    $("#post-list").prepend(`
     <div>
         <li>
             <div class="card" style="width: 30rem;">
