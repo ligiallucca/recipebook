@@ -18,20 +18,6 @@ function size(){
     }
 }
 
-function getPostsBD(){
-    database.ref('/posts/'+ USER_ID).once('value')
-    .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-            
-            let childKey = childSnapshot.key;
-            let childData = childSnapshot.val().text;
-            let childDate = childSnapshot.val().date;
-            
-            createListPost(childData, childKey, childDate);
-        });
-    });
-}
-
 function date(){
     let dNow = new Date();
     let localdate = dNow.getDate() + '/' + (dNow.getMonth()+1) + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes();
@@ -44,20 +30,38 @@ function addPostsClick(event){
     let newPost = $("#post-text").val();
     $("#post-text").val("");
     let newDate = date();
-    let postBD = addPostsBD(newPost, newDate);
+    let methodPost = $("#method-post").val();
+    let postBD = addPostsBD(newPost, newDate, methodPost);
     let postKey = postBD.getKey();
     
-    createListPost(newPost, postKey, newDate)    
+    createListPost(newPost, postKey, newDate, methodPost)    
 }    
 
-function addPostsBD(text, newDate){
+function addPostsBD(text, newDate, methodPost){
     return database.ref("posts/" + USER_ID).push({
         text: text,
-        date: newDate
+        date: newDate,
+        postMessage: methodPost
     });
 }
 
-function createListPost(text, key, date, likes){
+
+function getPostsBD(){
+    database.ref('/posts/'+ USER_ID).once('value')
+    .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            
+            let childKey = childSnapshot.key;
+            let childData = childSnapshot.val().text;
+            let childDate = childSnapshot.val().date;
+            let childMethod = childSnapshot.val().postMessage;
+            
+            createListPost(childData, childKey, childDate, childMethod);
+        });
+    });
+}
+
+function createListPost(text, key, date, methodPost, likes){
     $("#post-list").prepend(`
     <div>
     <li>
@@ -78,6 +82,7 @@ function createListPost(text, key, date, likes){
     Excluir
     </button>
     </div>
+    <span>Postado em modo ${methodPost}</span>
     <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -94,6 +99,7 @@ function createListPost(text, key, date, likes){
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
     <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
     </div>
+    
     </div>
     </div>
     </div>   
