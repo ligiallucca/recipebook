@@ -118,11 +118,15 @@ function createListPost(text, key, date, likes){
     
     $(`button[data-edit-id="${key}"]`).click(function(){
         let newText = prompt(`Altere o seu texto aqui: ${text}`);
-        $(`span[data-text-id=${key}]`).text(newText);
-        database.ref("posts/" + USER_ID + "/" + key).
-        update({
-            text:newText
-        }) 
+        if (newText === ""){
+            alert("Texto não pode ficar vazio")
+        } if (newText.length > 0){
+            $(`span[data-text-id=${key}]`).text(newText);
+            database.ref("posts/" + USER_ID + "/" + key).
+            update({
+                text:newText
+            }) 
+        }
     });
 }
 
