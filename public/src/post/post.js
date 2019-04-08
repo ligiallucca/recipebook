@@ -32,7 +32,6 @@ function addPostsClick(event){
     let newDate = date();
     let methodPost = $("#method-post").val();
     let like = 0;
-    // let likes = $(button[data-like-id="${key}).val();
     let postBD = addPostsBD(newPost, newDate, methodPost, like);
     let postKey = postBD.getKey();
     
@@ -60,95 +59,120 @@ function getPostsBD(){
             let childLike = childSnapshot.val().likes;
             
             createListPost(childData, childKey, childDate, childMethod, childLike);
-        });
-    });
-}
-
-function createListPost(text, key, date, methodPost, likes){
-    $("#post-list").prepend(`
-    <div>
-    <li>
-    <div class="card" style="width: 30rem;">
-    <div class="card-body">
-    <div>
-    <span data-text-id=${key}>${text}</span>
-    </div>
-    <span teste=${key}>${date}</span>
-    <div>
-    <span>
-    <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
-    </span>
-    <span>
-    <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
-    </span>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}">
-    Excluir
-    </button>
-    </div>
-    <span>Postado em modo ${methodPost}</span>
-    <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalCenterTitle">Excluir Publicação</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body">
-    Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
-    </div>
-    <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-    <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
-    </div>
-    </div>
-    </div>
-    </div>   
-    </div>
-    </div>
-    </li>
-    </div>
-    `);
-    
-    $(`button[data-delete-id="${key}"]`).click(function(){
-        database.ref("posts/" + USER_ID + "/" + key).remove();
-        $(this).parent().remove();
-        window.location.reload();   
-    });
-    
-    $(`button[data-like-id="${key}"]`).click(function(){
-        let counter = $(this).data("like-counter");
-        counter += 1;
-        $(this).data("like-counter", counter);
-        $(this).html(counter + " likes");
-        database.ref("posts/" + USER_ID + "/" + key).
-            update({
-                likes: counter
-            }) 
-    });
-    
-    $(`button[data-edit-id="${key}"]`).click(function(){
-        let newText = prompt(`Altere o seu texto aqui: ${text}`);
-        if (newText === ""){
-            alert("Texto não pode ficar vazio")
-        } if (newText.length > 0){
-            $(`span[data-text-id=${key}]`).text(newText);
-            database.ref("posts/" + USER_ID + "/" + key).
-            update({
-                text:newText
-            }) 
+            
+            // $("#filter-posts").change(function(){
+            //     let typePost = $("#filter-posts").find(":selected").val();
+            //     if (typePost == "order-all"){
+            //         createListPost(childData, childKey, childDate, childMethod, childLike);
+            //     } else if (typePost == "order-public"){
+            //         database.ref('/posts/'+ USER_ID + "/" + childKey)
+            //         .then(function(snapshot) {
+            //             snapshot.forEach(function(childSnapshot) {
+            //                 let childPost = childSnapshot.val().postMessage;
+            //                 console.log(childPost == "publico");
+            //             })
+            //         })
+            //     } else if(childPost === "order-private") {
+            //         database.ref('/posts/'+ USER_ID + "/" + childKey).once('value')
+            //         .then(function(snapshot) {
+            //             snapshot.forEach(function(childSnapshot) {
+            //                 let childPost = childSnapshot.val().postMessage;
+            //             })
+            //         })
+                    
+            //     }
+                
+            // })
+        })
+    })
+}    
+        
+        
+        function createListPost(text, key, date, methodPost, likes){
+            $("#post-list").prepend(`
+            <div>
+            <li>
+            <div class="card" style="width: 30rem;">
+            <div class="card-body">
+            <div>
+            <span data-text-id=${key}>${text}</span>
+            </div>
+            <span teste=${key}>${date}</span>
+            <div>
+            <span>
+            <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
+            </span>
+            <span>
+            <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
+            </span>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}">
+            Excluir
+            </button>
+            </div>
+            <span>Postado em modo ${methodPost}</span>
+            <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Excluir Publicação</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
+            </div>
+            </div>
+            </div>
+            </div>   
+            </div>
+            </div>
+            </li>
+            </div>
+            `);
+            
+            $(`button[data-delete-id="${key}"]`).click(function(){
+                database.ref("posts/" + USER_ID + "/" + key).remove();
+                $(this).parent().remove();
+                window.location.reload();   
+            });
+            
+            $(`button[data-like-id="${key}"]`).click(function(){
+                let counter = $(this).data("like-counter");
+                counter += 1;
+                $(this).data("like-counter", counter);
+                $(this).html(counter + " likes");
+                database.ref("posts/" + USER_ID + "/" + key).
+                update({
+                    likes: counter
+                }) 
+            });
+            
+            $(`button[data-edit-id="${key}"]`).click(function(){
+                let newText = prompt(`Altere o seu texto aqui: ${text}`);
+                if (newText === ""){
+                    alert("Texto não pode ficar vazio")
+                } if (newText.length > 0){
+                    $(`span[data-text-id=${key}]`).text(newText);
+                    database.ref("posts/" + USER_ID + "/" + key).
+                    update({
+                        text:newText
+                    }) 
+                }
+            });
         }
-    });
-}
-
-$("#exit").click(function (event) {
-    event.preventDefault();
-    
-    firebase.auth().signOut().then(function() {
-        window.location = "../../index.html";
-    }).catch(function(error) {
-        alert("Erro: " + error);
-    });
-});
-
+        
+        $("#exit").click(function (event) {
+            event.preventDefault();
+            
+            firebase.auth().signOut().then(function() {
+                window.location = "../../index.html";
+            }).catch(function(error) {
+                alert("Erro: " + error);
+            });
+        });
+        
