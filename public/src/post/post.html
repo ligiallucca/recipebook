@@ -26,6 +26,7 @@
                 <a class="nav-item nav-link active" href="/public/src/post/post.html"> Inicio <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link active" href="#">Receitas</a>
                 <a class="nav-item nav-link active" href="/public/src/profile/profile.html">Perfil</a>
+                <a class="nav-item nav-link active" target="_blank" href="https://marvelapp.com/b402cib/screen/54767651">Em desenvolvimento</a>
                 <a id="exit" class="nav-item nav-link active" href="../../index.html">Sair</a>
             </div>
         </div>
@@ -38,7 +39,18 @@
             <div class="col-md-4 mb-3">
                 <div class="card text-center">
                     <div class="card-header">
-                        Publicar Post
+                        <h1>Publicar Post</h1>
+                        <select id="filter-posts" class="btn btn-success dropdown-toggle">
+                            <option selected disabled>Filtrar por:</option>
+                            <option value="order-all">Todos</option>
+                            <option value="order-public">Postagens Públicas</option>
+                            <option value="order-private">Postagens Privadas</option>
+                        </select>
+                        <select id="order-posts" class="btn btn-success dropdown-toggle">
+                            <option selected disabled>Ordenar por:</option>
+                            <option value="order-amount">Maior quantidade de likes</option>
+                            <option value="order-recent">Mais Recentes</option>
+                        </select>
                     </div>
                     <div class="write-recipe">
                         <div class="card-body bg-light d-flex flex-column align-items-center">
