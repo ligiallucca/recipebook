@@ -60,34 +60,10 @@ function getPostsBD(){
             
             createListPost(childData, childKey, childDate, childMethod, childLike);
             
-            // $("#filter-posts").change(function(){
-            //     let typePost = $("#filter-posts").find(":selected").val();
-            //     if (typePost == "order-all"){
-            //         createListPost(childData, childKey, childDate, childMethod, childLike);
-            //     } else if (typePost == "order-public"){
-            //         database.ref('/posts/'+ USER_ID + "/" + childKey)
-            //         .then(function(snapshot) {
-            //             snapshot.forEach(function(childSnapshot) {
-            //                 let childPost = childSnapshot.val().postMessage;
-            //                 console.log(childPost == "publico");
-            //             })
-            //         })
-            //     } else if(childPost === "order-private") {
-            //         database.ref('/posts/'+ USER_ID + "/" + childKey).once('value')
-            //         .then(function(snapshot) {
-            //             snapshot.forEach(function(childSnapshot) {
-            //                 let childPost = childSnapshot.val().postMessage;
-            //             })
-            //         })
-                    
-            //     }
-                
-            // })
         })
     })
 }    
-        
-        
+
         function createListPost(text, key, date, methodPost, likes){
             $("#post-list").prepend(`
             <div>
@@ -165,7 +141,29 @@ function getPostsBD(){
                 }
             });
         }
+
+$('#filter-posts').change(function(event){
+    database.ref('/posts/'+ USER_ID).once('value')
+    .then(function(snapshot) {
+        $("#post-list").html("");
+        snapshot.forEach((childSnapshot) => {
+            let childKey = childSnapshot.key;
+            let childData = childSnapshot.val().text;
+            let childDate = childSnapshot.val().date;
+            let childMethod = childSnapshot.val().postMessage;
+            let childLike = childSnapshot.val().likes;
+
+            if (event.target.value === childMethod){
+                createListPost(childData, childKey, childDate, childMethod, childLike);
+            } else if(event.target.value === "todos") {
+                createListPost(childData, childKey, childDate, childMethod, childLike);
+            }
+        })
         
+    });
+
+})
+    
         $("#exit").click(function (event) {
             event.preventDefault();
             

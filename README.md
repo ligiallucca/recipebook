@@ -29,10 +29,10 @@ O projeto foi desenvolvido por: **Ligia de Lucca**, **Vanessa Yoshida** e **Yara
 
 # Definição do Produto
 ## Personas
-![persona](src/img/PersonaPatricia.png)
-![persona](src/img/PersonaTatiana.png)
-![persona](src/img/PersonaCarlos.png)
-![persona](src/img/PersonaIzabelle.png)
+![persona](public/src/img/PersonaPatricia.png)
+![persona](public/src/img/PersonaTatiana.png)
+![persona](public/src/img/PersonaCarlos.png)
+![persona](public/src/img/PersonaIzabelle.png)
 
 ## Elementos básicos de uma rede social
 A rede social é uma plataforma que conecta várias pessoas e elas podem compartilhar informações entre si. Na rede social Recipe Book é possível compartilhar seus conhecimentos da área de alimentação, curtir o conhecimento que os outros usuário também postaram ou compartilharam, e também incluimos um tipo de ranking para se tornar algo mais divertido e chamativo. 
