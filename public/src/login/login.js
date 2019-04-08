@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $("#enter-button").click(function(event) {
+  $("#login-form").submit(function(event) {
     event.preventDefault();
     
     let email = $("#user-email").val();
