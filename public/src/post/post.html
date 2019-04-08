@@ -32,19 +32,18 @@
         </div>
     </nav>
     
-    
     <container>
         <div class="row">
             <div class="col-md-4 mb-3"></div>
             <div class="col-md-4 mb-3">
                 <div class="card text-center">
                     <div class="card-header">
-                        <h1>Publicar Post</h1>
+                        <h1>Publicar e Visualizar Receitas</h1>
                         <select id="filter-posts" class="btn btn-success dropdown-toggle">
                             <option selected disabled>Filtrar por:</option>
-                            <option value="order-all">Todos</option>
-                            <option value="order-public">Postagens Públicas</option>
-                            <option value="order-private">Postagens Privadas</option>
+                            <option value="todos">Todos</option>
+                            <option value="publico">Postagens Públicas</option>
+                            <option value="privado">Postagens Privadas</option>
                         </select>
                         <select id="order-posts" class="btn btn-success dropdown-toggle">
                             <option selected disabled>Ordenar por:</option>
@@ -62,38 +61,14 @@
                                     <option value="privado">Privado</option>
                                 </select>
                                 <button id="send-button" class="btn btn-primary" disabled>Publicar</button>
-                                
-                                <!-- <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-method" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        Modo de Exibição
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-method">
-                                        <button class="dropdown-item" type="button" id="btn-public">Público</button>
-                                        <button class="dropdown-item" type="button" id="btn-private">Privado</button>
-                                    </div>
-                                </div> -->
-                            </div>
+
+                                </div>
                         </div>
                     </div>  
                     <ul id="post-list" class="list-ul"></ul>
                 </div>
             </div>
-            <!--            
-                <div class="col-md-4 mb-3"></div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Receita</h5>
-                        <label>Digite o nome da Receita</label>
-                        <input class="card-subtitle mb-2 text-muted" placeholder="Nome da Receita"></input>
-                        <label>Digite os Ingredientes</label>
-                        <input class="card-text" placeholder="Ingredientes"></input>
-                        <label>Digite a Receita</label>
-                        <textarea class="card-text" placeholder="Modo de fazer"></textarea>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-            </div> -->
+
         </container>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

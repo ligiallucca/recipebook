@@ -6,8 +6,6 @@ $(document).ready(function() {
 		
 		firebase.auth().signInWithPopup(provider)
 		.then(function(response) {
-			// let token = result.credential.accessToken;
-			// let user = result.user;
 			window.location = "/public/src/post/post.html?id="+ response.user.uid;
 			
 		}).catch(function(error) {
