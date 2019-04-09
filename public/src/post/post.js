@@ -1,7 +1,7 @@
 let database = firebase.database();
 let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
-$(document).ready(() => {
+$(document).ready( function() {
     getPostsBD();
     $('#post-text').on('keyup', () => {
         $('#send-button').prop('disabled', $('#post-text').val().length < 1);
