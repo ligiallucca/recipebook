@@ -1,30 +1,30 @@
 let database = firebase.database();
 let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
-$(document).ready(function(){
+$(document).ready(() => {
     getPostsBD();
     
-    $('#post-text').on('keyup', function(){
+    $('#post-text').on('keyup', () => {
         $('#send-button').prop('disabled', $('#post-text').val().length < 1);
     });
     $("#send-button").click(addPostsClick);
 });
 
 $("#post-text").change('keyup',size);
-function size(){
+let size = () => {
     while ($("#post-text").scrollHeight > $("#post-text").offsetHeight)
     {
         $("#post-text").rows += 1;
     }
 }
 
-function date(){
+let date = () => {
     let dNow = new Date();
     let localdate = dNow.getDate() + '/' + (dNow.getMonth()+1) + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes();
     return localdate;
 }
 
-function addPostsClick(event){
+let addPostsClick = (event) => {
     event.preventDefault();
     $('#send-button').attr('disabled', true);
     let newPost = $("#post-text").val();
@@ -38,7 +38,7 @@ function addPostsClick(event){
     createListPost(newPost, postKey, newDate, methodPost, like)    
 }    
 
-function addPostsBD(text, newDate, methodPost, like){
+let addPostsBD = (text, newDate, methodPost, like) => {
     return database.ref("posts/" + USER_ID).push({
         text: text,
         date: newDate,
@@ -47,10 +47,10 @@ function addPostsBD(text, newDate, methodPost, like){
     });
 }
 
-function getPostsBD(){
+let getPostsBD = () => {
     database.ref('/posts/'+ USER_ID).once('value')
-    .then(function(snapshot) {
-        snapshot.forEach(function(childSnapshot) {
+    .then((snapshot)  => {
+        snapshot.forEach((childSnapshot)  => {
             
             let childKey = childSnapshot.key;
             let childData = childSnapshot.val().text;
@@ -64,7 +64,7 @@ function getPostsBD(){
     })
 }    
 
-        function createListPost(text, key, date, methodPost, likes){
+        let createListPost = (text, key, date, methodPost, likes) => {
             $("#post-list").prepend(`
             <div>
             <li>
@@ -111,13 +111,13 @@ function getPostsBD(){
             </div>
             `);
             
-            $(`button[data-delete-id="${key}"]`).click(function(){
+            $(`button[data-delete-id="${key}"]`).click(() => {
                 database.ref("posts/" + USER_ID + "/" + key).remove();
                 $(this).parent().remove();
                 window.location.reload();   
             });
             
-            $(`button[data-like-id="${key}"]`).click(function(){
+            $(`button[data-like-id="${key}"]`).click(() => {
                 let counter = $(this).data("like-counter");
                 counter += 1;
                 $(this).data("like-counter", counter);
@@ -128,7 +128,7 @@ function getPostsBD(){
                 }) 
             });
             
-            $(`button[data-edit-id="${key}"]`).click(function(){
+            $(`button[data-edit-id="${key}"]`).click(() => {
                 let newText = prompt(`Altere o seu texto aqui: ${text}`);
                 if (newText === ""){
                     alert("Texto não pode ficar vazio")
@@ -142,9 +142,9 @@ function getPostsBD(){
             });
         }
 
-$('#filter-posts').change(function(event){
+$('#filter-posts').change((event) => {
     database.ref('/posts/'+ USER_ID).once('value')
-    .then(function(snapshot) {
+    .then((snapshot) => {
         $("#post-list").html("");
         snapshot.forEach((childSnapshot) => {
             let childKey = childSnapshot.key;
@@ -164,12 +164,12 @@ $('#filter-posts').change(function(event){
 
 })
     
-        $("#exit").click(function (event) {
+        $("#exit").click((event) => {
             event.preventDefault();
             
-            firebase.auth().signOut().then(function() {
+            firebase.auth().signOut().then(() => {
                 window.location = "../../index.html";
-            }).catch(function(error) {
+            }).catch((error) => {
                 alert("Erro: " + error);
             });
         });
