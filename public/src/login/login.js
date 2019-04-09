@@ -1,15 +1,15 @@
-$(document).ready(function() {
-  $("#login-form").submit(function(event) {
+$(document).ready(() =>  {
+  $("#login-form").submit((event) => {
     event.preventDefault();
     
     let email = $("#user-email").val();
     let password = $("#user-password").val();
     
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(function(response){
+    .then((response) => {
       window.location = "./src/post/post.html?id=" + response.user.uid;
     })
-    .catch(function() {
+    .catch(() => {
       if (email === ""){
         $("#invalid-email").html("O campo não pode ficar vazio.");
       } else if (email.search("@") === -1){
@@ -26,7 +26,7 @@ $(document).ready(function() {
     });          
   })
   
-  $("#forget-password").click(function(){
+  $("#forget-password").click(() => {
     window.location = "./src/login/password.html"
   })
 });
