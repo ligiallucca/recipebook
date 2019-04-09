@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(document).ready(function() {
   $("#google-button").click((event) => {
     event.preventDefault();
     
@@ -6,7 +6,7 @@ $(document).ready(() => {
     
     firebase.auth().signInWithPopup(provider)
     .then((response) => {
-       window.location = "./src/post/post.html?id=" + response.user.uid;
+      window.location = "./src/post/post.html?id=" + response.user.uid;
     })
     .catch((error) => {
       let errorCode = error.code;
