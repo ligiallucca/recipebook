@@ -3,7 +3,6 @@ let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
 $(document).ready(() => {
     getPostsBD();
-    
     $('#post-text').on('keyup', () => {
         $('#send-button').prop('disabled', $('#post-text').val().length < 1);
     });
@@ -20,11 +19,13 @@ let size = () => {
 
 let date = () => {
     let dNow = new Date();
-    let localdate = dNow.getDate() + '/' + (dNow.getMonth()+1) + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes();
+    let localdate = dNow.getDate() + '/' + (dNow.getMonth() + 1) + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes();
     return localdate;
 }
 
+
 let addPostsClick = (event) => {
+
     event.preventDefault();
     $('#send-button').attr('disabled', true);
     let newPost = $("#post-text").val();
@@ -34,9 +35,10 @@ let addPostsClick = (event) => {
     let like = 0;
     let postBD = addPostsBD(newPost, newDate, methodPost, like);
     let postKey = postBD.getKey();
-    
-    createListPost(newPost, postKey, newDate, methodPost, like)    
-}    
+
+
+    createListPost(newPost, postKey, newDate, methodPost, like)
+}
 
 let addPostsBD = (text, newDate, methodPost, like) => {
     return database.ref("posts/" + USER_ID).push({
@@ -66,58 +68,94 @@ let getPostsBD = () => {
 
 let createListPost = (text, key, date, methodPost, likes) => {
     $("#post-list").prepend(`
-    <div>
-    <li>
-    <div class="card" style="width: 30rem;">
-    <div class="card-body">
-    <div>
-    <span data-text-id=${key}>${text}</span>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text"data-text-id=${key}> ${text} </p>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                    Launch demo modal
+                    </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <span teste=${key}>${date}</span>
-    <div>
-    <span>
-    <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
-    </span>
-    <span>
-    <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
-    </span>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}">
-    Excluir
-    </button>
-    </div>
-    <span>Postado em modo ${methodPost}</span>
-    <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalCenterTitle">Excluir Publicação</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body">
-    Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
-    </div>
-    <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-    <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
-    </div>
-    </div>
-    </div>
-    </div>   
-    </div>
-    </div>
-    </li>
-    </div>
-    `);
-    
-    $(`button[data-delete-id="${key}"]`).click(() => {
+</div>
+  `);
+
+    // <div>
+    // <li>
+    // <div class="card" style="width: 30rem;">
+    // <div class="card-body">
+    // <div>
+    // <span data-text-id=${key}>${text}</span>
+    // </div>
+    // <span teste=${key}>${date}</span>
+    // <div>
+    // <span>
+    // <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
+    // </span>
+    // <span>
+    // <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
+    // </span>
+    // <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}">
+    // Excluir
+    // </button>
+    // </div>
+    // <span>Postado em modo ${methodPost}</span>
+    // <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    // <div class="modal-dialog modal-dialog-centered" role="document">
+    // <div class="modal-content">
+    // <div class="modal-header">
+    // <h5 class="modal-title" id="exampleModalCenterTitle">Excluir Publicação</h5>
+    // <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    // <span aria-hidden="true">&times;</span>
+    // </button>
+    // </div>
+    // <div class="modal-body">
+    // Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
+    // </div>
+    // <div class="modal-footer">
+    // <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+    // <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
+    // </div>
+    // </div>
+    // </div>
+    // </div>   
+    // </div>
+    // </div>
+    // </li>
+    // </div>
+    // `);
+
+   $(`button[data-delete-id="${key}"]`).click(() => {
         database.ref("posts/" + USER_ID + "/" + key).remove();
         $(this).parent().remove();
         window.location.reload();   
     });
-    
-    $(`button[data-like-id="${key}"]`).click(() => {
+
+     $(`button[data-like-id="${key}"]`).click(() => {
         let counter = $(this).data("like-counter");
         counter += 1;
         $(this).data("like-counter", counter);
