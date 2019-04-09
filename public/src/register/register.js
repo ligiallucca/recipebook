@@ -1,11 +1,11 @@
 const database = firebase.database();
 
-$(document).ready(function() {
+$(document).ready(() => {
   'use strict';
-  window.addEventListener('load', function() {
+  window.addEventListener('load', () => {
     let forms = $(".needs-validation");
-    Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
+    Array.prototype.filter.call(forms, (form) => {
+      form.addEventListener('submit', (event) => {
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
@@ -20,7 +20,7 @@ $(document).ready(function() {
         let username = $("[data-id-username ='data-username']").val();
         let birthday = $("[data-id-birthday = 'data-birthday']").val();
         firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function(response){
+        .then((response) => {
           database.ref(`users/${response.user.uid}`).update({
             name: name,
             lastname: lastname,
@@ -29,7 +29,7 @@ $(document).ready(function() {
           })
           window.location = `/public/src/post/post.html?id=${response.user.uid}`
         })  
-        .catch(function(error) {
+        .catch((error) => {
           let errorCode = error.code;
           let errorMessage = error.message;
           alert(errorCode, errorMessage);

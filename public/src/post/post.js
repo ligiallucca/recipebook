@@ -1,29 +1,31 @@
 let database = firebase.database();
 let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
-$(document).ready(function () {
+$(document).ready(() => {
     getPostsBD();
-
-    $('#post-text').on('keyup', function () {
+    $('#post-text').on('keyup', () => {
         $('#send-button').prop('disabled', $('#post-text').val().length < 1);
     });
     $("#send-button").click(addPostsClick);
 });
 
-$("#post-text").change('keyup', size);
-function size() {
-    while ($("#post-text").scrollHeight > $("#post-text").offsetHeight) {
+$("#post-text").change('keyup',size);
+let size = () => {
+    while ($("#post-text").scrollHeight > $("#post-text").offsetHeight)
+    {
         $("#post-text").rows += 1;
     }
 }
 
-function date() {
+let date = () => {
     let dNow = new Date();
     let localdate = dNow.getDate() + '/' + (dNow.getMonth() + 1) + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes();
     return localdate;
 }
 
-function addPostsClick(event) {
+
+let addPostsClick = (event) => {
+
     event.preventDefault();
     $('#send-button').attr('disabled', true);
     let newPost = $("#post-text").val();
@@ -34,10 +36,11 @@ function addPostsClick(event) {
     let postBD = addPostsBD(newPost, newDate, methodPost, like);
     let postKey = postBD.getKey();
 
+
     createListPost(newPost, postKey, newDate, methodPost, like)
 }
 
-function addPostsBD(text, newDate, methodPost, like) {
+let addPostsBD = (text, newDate, methodPost, like) => {
     return database.ref("posts/" + USER_ID).push({
         text: text,
         date: newDate,
@@ -46,24 +49,24 @@ function addPostsBD(text, newDate, methodPost, like) {
     });
 }
 
-function getPostsBD() {
-    database.ref('/posts/' + USER_ID).once('value')
-        .then(function (snapshot) {
-            snapshot.forEach(function (childSnapshot) {
-
-                let childKey = childSnapshot.key;
-                let childData = childSnapshot.val().text;
-                let childDate = childSnapshot.val().date;
-                let childMethod = childSnapshot.val().postMessage;
-                let childLike = childSnapshot.val().likes;
-
-                createListPost(childData, childKey, childDate, childMethod, childLike);
-
-            })
+let getPostsBD = () => {
+    database.ref('/posts/'+ USER_ID).once('value')
+    .then((snapshot)  => {
+        snapshot.forEach((childSnapshot)  => {
+            
+            let childKey = childSnapshot.key;
+            let childData = childSnapshot.val().text;
+            let childDate = childSnapshot.val().date;
+            let childMethod = childSnapshot.val().postMessage;
+            let childLike = childSnapshot.val().likes;
+            
+            createListPost(childData, childKey, childDate, childMethod, childLike);
+            
         })
-}
+    })
+}    
 
-function createListPost(text, key, date, methodPost, likes) {
+let createListPost = (text, key, date, methodPost, likes) => {
     $("#post-list").prepend(`
     <div class="row">
         <div class="col-sm-6">
@@ -146,65 +149,65 @@ function createListPost(text, key, date, methodPost, likes) {
     // </div>
     // `);
 
-    $(`button[data-delete-id="${key}"]`).click(function () {
+   $(`button[data-delete-id="${key}"]`).click(() => {
         database.ref("posts/" + USER_ID + "/" + key).remove();
         $(this).parent().remove();
-        window.location.reload();
+        window.location.reload();   
     });
 
-    $(`button[data-like-id="${key}"]`).click(function () {
+     $(`button[data-like-id="${key}"]`).click(() => {
         let counter = $(this).data("like-counter");
         counter += 1;
         $(this).data("like-counter", counter);
         $(this).html(counter + " likes");
         database.ref("posts/" + USER_ID + "/" + key).
-            update({
-                likes: counter
-            })
+        update({
+            likes: counter
+        }) 
     });
-
-    $(`button[data-edit-id="${key}"]`).click(function () {
+    
+    $(`button[data-edit-id="${key}"]`).click(() => {
         let newText = prompt(`Altere o seu texto aqui: ${text}`);
-        if (newText === "") {
+        if (newText === ""){
             alert("Texto não pode ficar vazio")
-        } if (newText.length > 0) {
+        } if (newText.length > 0){
             $(`span[data-text-id=${key}]`).text(newText);
             database.ref("posts/" + USER_ID + "/" + key).
-                update({
-                    text: newText
-                })
+            update({
+                text:newText
+            }) 
         }
     });
 }
 
-$('#filter-posts').change(function (event) {
-    database.ref('/posts/' + USER_ID).once('value')
-        .then(function (snapshot) {
-            $("#post-list").html("");
-            snapshot.forEach((childSnapshot) => {
-                let childKey = childSnapshot.key;
-                let childData = childSnapshot.val().text;
-                let childDate = childSnapshot.val().date;
-                let childMethod = childSnapshot.val().postMessage;
-                let childLike = childSnapshot.val().likes;
-
-                if (event.target.value === childMethod) {
-                    createListPost(childData, childKey, childDate, childMethod, childLike);
-                } else if (event.target.value === "todos") {
-                    createListPost(childData, childKey, childDate, childMethod, childLike);
-                }
-            })
-
-        });
-
+$('#filter-posts').change((event) => {
+    database.ref('/posts/'+ USER_ID).once('value')
+    .then((snapshot) => {
+        $("#post-list").html("");
+        snapshot.forEach((childSnapshot) => {
+            let childKey = childSnapshot.key;
+            let childData = childSnapshot.val().text;
+            let childDate = childSnapshot.val().date;
+            let childMethod = childSnapshot.val().postMessage;
+            let childLike = childSnapshot.val().likes;
+            
+            if (event.target.value === childMethod){
+                createListPost(childData, childKey, childDate, childMethod, childLike);
+            } else if(event.target.value === "todos") {
+                createListPost(childData, childKey, childDate, childMethod, childLike);
+            }
+        })
+        
+    });
+    
 })
 
-$("#exit").click(function (event) {
+$("#exit").click((event) => {
     event.preventDefault();
-
-    firebase.auth().signOut().then(function () {
+    
+    firebase.auth().signOut().then(() => {
         window.location = "../../index.html";
-    }).catch(function (error) {
+    }).catch((error) => {
         alert("Erro: " + error);
     });
 });
