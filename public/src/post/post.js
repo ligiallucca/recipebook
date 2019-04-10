@@ -1,3 +1,6 @@
+let database = firebase.database();
+let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
+
 $(document).ready(function() {
     let getPostsBD = () => {
         database.ref('/posts/'+ USER_ID).once('value')
@@ -21,7 +24,14 @@ $(document).ready(function() {
         $('#send-button').prop('disabled', $('#post-text').val().length < 1);
     });
     $("#send-button").click(addPostsClick);
-   
+    
+    // $("#post-text").change('keyup', () => {
+    //     while ($("#post-text").scrollHeight > $("#post-text").offsetHeight)
+    //     {
+    //         $("#post-text").rows += 1;
+    //     }
+    // });
+});
 
 let date = () => {
     let dNow = new Date();
@@ -145,14 +155,11 @@ let createListPost = (titulePost, ingredientsPost, text, date, methodPost, likes
             likes: counter
         }) 
     });
-
-    function getNewText() {
+    
+    $(`button[data-edit-id="${key}"]`).click(() => {
         let newText = prompt(`Altere o seu texto aqui: ${text}`);
-
         if (newText === ""){
             alert("Texto não pode ficar vazio")
-            return "EITA"
-        
         } if (newText.length > 0){
             $(`span[data-text-id=${key}]`).text(newText);
             database.ref("posts/" + USER_ID + "/" + key).
@@ -161,13 +168,6 @@ let createListPost = (titulePost, ingredientsPost, text, date, methodPost, likes
                 text: ingredientsPost,
                 text: newText
             }) 
-        }
-    }
-    
-    $(`button[data-edit-id="${key}"]`).click(() => {
-        let newText = getNewText();
-        while (newText === "EITA") {
-            newText = getNewText();
         }
     });
 }
@@ -206,4 +206,51 @@ $("#exit").click((event) => {
     });
 });
 
+ 
+    // <div>
+    // <li>
+    // <div class="card" style="width: 30rem;">
+    // <div class="card-body">
+    // <div>
+    // <span data-text-id=${key}>${text}</span>
+    // </div>
+    // <span teste=${key}>${date}</span>
+    // <div>
+    // // <span>
+    // <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
+    // </span>
+    // <span>
+    // <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
+    // </span>
+    // <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}">
+    // Excluir
+    // </button>
+    // </div>
+    // <span>Postado em modo ${methodPost}</span>
+    // <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="modal-delete-post" aria-hidden="true">
+    // <div class="modal-dialog modal-dialog-centered" role="document">
+    // <div class="modal-content">
+    // <div class="modal-header">
+    // <h5 class="modal-title" id="modal-delete-post">Excluir Publicação</h5>
+    // <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    // <span aria-hidden="true">&times;</span>
+    // </button>
+    // </div>
+    // <div class="modal-body">
+    // Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
+    // </div>
+    // <div class="modal-footer">
+    // <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+    // <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
+    // </div>
+    // </div>
+    // </div>
+    // </div>   
+    // </div>
+    // </div>
+    // </li>
+    // </div>
+    // `);
 
+
+    // <span class="card-text" data-text-id=${key}> ${text} </span>
