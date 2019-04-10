@@ -1,21 +1,37 @@
 let database = firebase.database();
 let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
-$(document).ready(() => {
-    getPostsBD();
+$(document).ready(function() {
+    let getPostsBD = () => {
+        database.ref('/posts/'+ USER_ID).once('value')
+        .then((snapshot)  => {
+            snapshot.forEach((childSnapshot)  => {
+                
+                let childKey = childSnapshot.key;
+                let childTitule = childSnapshot.val().titule;
+                let childIngredients = childSnapshot.val().ingredients;
+                let childText = childSnapshot.val().text;
+                let childDate = childSnapshot.val().date;
+                let childMethod = childSnapshot.val().postMessage;
+                let childLike = childSnapshot.val().likes;
+                
+                createListPost(childTitule, childIngredients, childText, childDate, childMethod, childLike, childKey);
+            })
+        })
+    }    
+    
     $('#post-text').on('keyup', () => {
         $('#send-button').prop('disabled', $('#post-text').val().length < 1);
     });
     $("#send-button").click(addPostsClick);
+    
+    // $("#post-text").change('keyup', () => {
+    //     while ($("#post-text").scrollHeight > $("#post-text").offsetHeight)
+    //     {
+    //         $("#post-text").rows += 1;
+    //     }
+    // });
 });
-
-$("#post-text").change('keyup',size);
-let size = () => {
-    while ($("#post-text").scrollHeight > $("#post-text").offsetHeight)
-    {
-        $("#post-text").rows += 1;
-    }
-}
 
 let date = () => {
     let dNow = new Date();
@@ -23,25 +39,28 @@ let date = () => {
     return localdate;
 }
 
-
 let addPostsClick = (event) => {
-
     event.preventDefault();
     $('#send-button').attr('disabled', true);
+    let titulePost = $("#titule-recipe").val();
+    let ingredientsPost = $("#ingredients").val();
     let newPost = $("#post-text").val();
-    $("#post-text").val("");
     let newDate = date();
     let methodPost = $("#method-post").val();
     let like = 0;
-    let postBD = addPostsBD(newPost, newDate, methodPost, like);
+    $("#titule-recipe").val("");
+    $("#ingredients").val("");
+    $("#post-text").val("");
+    let postBD = addPostsBD(titulePost, ingredientsPost, newPost, newDate, methodPost, like);
     let postKey = postBD.getKey();
-
-
-    createListPost(newPost, postKey, newDate, methodPost, like)
+    
+    // createListPost(titulePost, ingredientsPost, newPost, newDate, methodPost, postKey)
 }
 
-let addPostsBD = (text, newDate, methodPost, like) => {
+let addPostsBD = (titulePost, ingredientsPost, text, newDate, methodPost, like) => {
     return database.ref("posts/" + USER_ID).push({
+        titule: titulePost,
+        ingredients: ingredientsPost,
         text: text,
         date: newDate,
         postMessage: methodPost,
@@ -49,61 +68,145 @@ let addPostsBD = (text, newDate, methodPost, like) => {
     });
 }
 
-let getPostsBD = () => {
-    database.ref('/posts/'+ USER_ID).once('value')
-    .then((snapshot)  => {
-        snapshot.forEach((childSnapshot)  => {
-            
-            let childKey = childSnapshot.key;
-            let childData = childSnapshot.val().text;
-            let childDate = childSnapshot.val().date;
-            let childMethod = childSnapshot.val().postMessage;
-            let childLike = childSnapshot.val().likes;
-            
-            createListPost(childData, childKey, childDate, childMethod, childLike);
-            
-        })
-    })
-}    
-
-let createListPost = (text, key, date, methodPost, likes) => {
+let createListPost = (titulePost, ingredientsPost, text, date, methodPost, likes, key) => {
     $("#post-list").prepend(`
-    <div class="row">
-        <div class="col-sm-6">
+    <li>
+    <div class="row" data-new-post=${key}>
+        <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text"data-text-id=${key}> ${text} </p>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-                    Launch demo modal
-                    </button>
+                    <h5 class="card-title"data-titule-id=${key}> ${titulePost} </h5>
+                    <span class="card-text" data-ingredients-id=${key}> ${ingredientsPost} </span>
+                    
+                    <div id="modal-show-recipe">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-recipe-show">
+                            Receita
+                        </button>
+                        
+                        <div class="modal fade" id="modal-recipe-show" tabindex="-1" role="dialog" aria-labelledby="modal-recipe-showTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modal-recipe-showTitle">Receita</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body"> 
+                                        ${text}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                    <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
+                    <span>
+                    <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
+                    </span>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}"> Excluir </button>
+                </div>
+                <div>
+                    <span date=${key}> Postado em ${date} </span>
+                    <span>- Modo ${methodPost}</span>
+                </div>
+                
+
+                <div aria-labelledby="modal-delete-post" class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <h5 class="modal-title" id="modal-delete-post">Excluir Publicação</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                ...
+                                Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
                             </div>
                         </div>
-                </div>
-            </div>
+                    </div>  
+                </div>        
+            </div>            
         </div>
     </div>
-</div>
-  `);
+    </li>
+    `);
+    
+    $(`button[data-delete-id="${key}"]`).click(() => {
+        database.ref("posts/" + USER_ID + "/" + key).remove();
+        $(this).parent().remove();
+        window.location.reload();   
+    });
+    
+    $(`button[data-like-id="${key}"]`).click(() => {
+        let counter = $(this).data("like-counter");
+        counter += 1;
+        $(this).data("like-counter", counter);
+        $(this).html(counter + " likes");
+        database.ref("posts/" + USER_ID + "/" + key).update({
+            likes: counter
+        }) 
+    });
+    
+    $(`button[data-edit-id="${key}"]`).click(() => {
+        let newText = prompt(`Altere o seu texto aqui: ${text}`);
+        if (newText === ""){
+            alert("Texto não pode ficar vazio")
+        } if (newText.length > 0){
+            $(`span[data-text-id=${key}]`).text(newText);
+            database.ref("posts/" + USER_ID + "/" + key).
+            update({
+                text: titulePost,
+                text: ingredientsPost,
+                text: newText
+            }) 
+        }
+    });
+}
 
+$('#filter-posts').change((event) => {
+    database.ref('/posts/'+ USER_ID).once('value')
+    .then((snapshot) => {
+        $("#post-list").html("");
+        snapshot.forEach((childSnapshot) => {
+            let childKey = childSnapshot.key;
+            let childTitulePost = childSnapshot.val().titule;
+            let childIngredientsPost = childSnapshot.val().ingredients;
+            let childData = childSnapshot.val().text;
+            let childDate = childSnapshot.val().date;
+            let childMethod = childSnapshot.val().postMessage;
+            let childLike = childSnapshot.val().likes;
+            
+            if (event.target.value === childMethod){
+                createListPost(childTitulePost, childIngredientsPost, childData, childDate, childMethod, childLike, childKey);
+            } else if(event.target.value === "todos") {
+                createListPost(childTitulePost, childIngredientsPost, childData, childDate, childMethod, childLike, childKey);
+            }
+        })
+        
+    });
+    
+})
+
+$("#exit").click((event) => {
+    event.preventDefault();
+    
+    firebase.auth().signOut().then(() => {
+        window.location = "../../index.html";
+    }).catch((error) => {
+        alert("Erro: " + error);
+    });
+});
+
+ 
     // <div>
     // <li>
     // <div class="card" style="width: 30rem;">
@@ -113,7 +216,7 @@ let createListPost = (text, key, date, methodPost, likes) => {
     // </div>
     // <span teste=${key}>${date}</span>
     // <div>
-    // <span>
+    // // <span>
     // <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
     // </span>
     // <span>
@@ -124,11 +227,11 @@ let createListPost = (text, key, date, methodPost, likes) => {
     // </button>
     // </div>
     // <span>Postado em modo ${methodPost}</span>
-    // <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    // <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="modal-delete-post" aria-hidden="true">
     // <div class="modal-dialog modal-dialog-centered" role="document">
     // <div class="modal-content">
     // <div class="modal-header">
-    // <h5 class="modal-title" id="exampleModalCenterTitle">Excluir Publicação</h5>
+    // <h5 class="modal-title" id="modal-delete-post">Excluir Publicação</h5>
     // <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     // <span aria-hidden="true">&times;</span>
     // </button>
@@ -149,66 +252,5 @@ let createListPost = (text, key, date, methodPost, likes) => {
     // </div>
     // `);
 
-   $(`button[data-delete-id="${key}"]`).click(() => {
-        database.ref("posts/" + USER_ID + "/" + key).remove();
-        $(this).parent().remove();
-        window.location.reload();   
-    });
 
-     $(`button[data-like-id="${key}"]`).click(() => {
-        let counter = $(this).data("like-counter");
-        counter += 1;
-        $(this).data("like-counter", counter);
-        $(this).html(counter + " likes");
-        database.ref("posts/" + USER_ID + "/" + key).
-        update({
-            likes: counter
-        }) 
-    });
-    
-    $(`button[data-edit-id="${key}"]`).click(() => {
-        let newText = prompt(`Altere o seu texto aqui: ${text}`);
-        if (newText === ""){
-            alert("Texto não pode ficar vazio")
-        } if (newText.length > 0){
-            $(`span[data-text-id=${key}]`).text(newText);
-            database.ref("posts/" + USER_ID + "/" + key).
-            update({
-                text:newText
-            }) 
-        }
-    });
-}
-
-$('#filter-posts').change((event) => {
-    database.ref('/posts/'+ USER_ID).once('value')
-    .then((snapshot) => {
-        $("#post-list").html("");
-        snapshot.forEach((childSnapshot) => {
-            let childKey = childSnapshot.key;
-            let childData = childSnapshot.val().text;
-            let childDate = childSnapshot.val().date;
-            let childMethod = childSnapshot.val().postMessage;
-            let childLike = childSnapshot.val().likes;
-            
-            if (event.target.value === childMethod){
-                createListPost(childData, childKey, childDate, childMethod, childLike);
-            } else if(event.target.value === "todos") {
-                createListPost(childData, childKey, childDate, childMethod, childLike);
-            }
-        })
-        
-    });
-    
-})
-
-$("#exit").click((event) => {
-    event.preventDefault();
-    
-    firebase.auth().signOut().then(() => {
-        window.location = "../../index.html";
-    }).catch((error) => {
-        alert("Erro: " + error);
-    });
-});
-
+    // <span class="card-text" data-text-id=${key}> ${text} </span>

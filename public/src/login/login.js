@@ -1,4 +1,4 @@
-$(document).ready(() =>  {
+$(document).ready(function() {
   $("#login-form").submit((event) => {
     event.preventDefault();
     

@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(document).ready(function() {
 	$("#facebook-button").click((event) => {
 		event.preventDefault();
 		
@@ -13,6 +13,7 @@ $(document).ready(() => {
 			let errorMessage = error.message;
 			let email = error.email;
 			let credential = error.credential;
+			alert(errorCode, errorMessage, email, credential);
 		});
 	})
 });		
