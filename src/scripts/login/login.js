@@ -7,7 +7,7 @@ $(document).ready(function() {
     
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((response) => {
-      window.location = "./src/post/post.html?id=" + response.user.uid;
+      window.location = "post.html?id=" + response.user.uid;
     })
     .catch(() => {
       if (email === ""){
@@ -27,6 +27,6 @@ $(document).ready(function() {
   })
   
   $("#forget-password").click(() => {
-    window.location = "./src/login/password.html"
+    window.location = "password.html"
   })
 });
