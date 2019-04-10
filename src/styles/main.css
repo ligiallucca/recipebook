@@ -1,5 +1,5 @@
-.container{
-    display: flex;
+ul {
+    padding: 0;
 }
 
 .cont-register {
@@ -7,30 +7,24 @@
     align-items: center;
 }
 
-.text-center{
-    text-align: center!important;
-}
-
 .alert-invalid {
     color: brown;
 }
-.page-header {
+.page-header-custom {
     font-family: 'Vibur', cursive;
     font-size: 36px;
-}
-
-.card-header{
-    font-size: 16px;
-}
-
-.form-group{
-    flex: 1;
 }
 
 .color-primary{
     background-color: #2f721e;
     border: #2f721e;
     color: #ffffff;   
+}
+
+.color-secondary{
+    background-color: #007bff;
+    border: #007bff;
+    color: #ffffff;
 }
 
 .color-primary a{
@@ -47,7 +41,7 @@
 
 .list-ul {
     list-style-type: none;
-    }
+}
 
 .card-text {
     border-radius: 10px;
@@ -88,7 +82,7 @@
     background-color: #2f721e;
 }
 
-.btn-facebook {
+.btn-facebook, .bg-facebook {
     background-color: #3b5998;
 }
 

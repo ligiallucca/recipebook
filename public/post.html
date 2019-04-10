@@ -18,7 +18,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark color-primary">
-        <span class="page-header color-primary" href="#">Recipe Book</span>
+        <span class="page-header page-header-custom color-primary" href="#">Recipe Book</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,46 +33,86 @@
         </div>
     </nav>
     
-    <container>
-        <div class="d-flex flex-column align-items-center">
-            <div class="card-header">
-                <h2>Publicar e Visualizar Receitas</h2>
-                <select id="filter-posts" class="btn btn-success dropdown-toggle">
+    <section class="container">
+        <div class="row my-4">
+            <div class="col-12">
+                <h2 class="display-4">Olá, <strong id="welcome-name"></strong>!</h2>
+                <hr class="my-3">
+                <p class="lead text-justify">Aqui você pode publicar e visualizar suas receitas!</p>
+            </div>
+        </div>
+    </section>
+
+    </section>
+        <div class="container">
+            <div class="row m-2">
+                <div class="col-12 px-3 py-4 bg-light">
+                    <h5 class="text-center mb-3">Adicionar</h5>
+
+                    <div class="form-group">
+                        <label>Digite o nome da Receita</label>
+                        <input class="form-control" placeholder="Nome da Receita" id="title-recipe"></input>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label>Digite os Ingredientes</label>
+                        <input class="form-control" placeholder="Ingredientes" id="ingredients"></input>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label>Digite a Receita</label>
+                        <textarea class="form-control" placeholder="Modo de fazer" id="post-text"></textarea>
+                    </div>
+
+                    <div>
+                        <div class="form-group">
+
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" value="publico" id="public-post" name="method-post" class="custom-control-input">
+                                <label class="custom-control-label" for="public-post">Público</label>
+                            </div>
+    
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" value="privado" id="private-post" name="method-post" class="custom-control-input">
+                                <label class="custom-control-label" for="private-post">Privado</label>
+                            </div>
+                        </div>
+
+                        <button id="send-button" class="btn btn-block color-secondary" disabled>Publicar</button>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-center mb-3">Receitas</h2>
+            <div class="form-group">
+                <select id="filter-posts" class="btn btn-block color-primary dropdown-toggle">
                     <option selected disabled>Filtrar por:</option>
                     <option value="todos">Todos</option>
                     <option value="publico">Postagens Públicas</option>
                     <option value="privado">Postagens Privadas</option>
                 </select>
-                <select id="order-posts" class="btn btn-success dropdown-toggle">
+                <select id="order-posts" class="btn btn-block color-primary dropdown-toggle">
                     <option selected disabled>Ordenar por:</option>
                     <option value="order-amount">Maior quantidade de likes</option>
                     <option value="order-recent">Mais Recentes</option>
                 </select>
+            </div>
                 
                 <div class="write-recipe">
-                    <div class="card-body">
-                        <div class="card-body bg-light d-flex flex-column align-items-center">
-                            <h5 class="card-title">Receita</h5>
-                            <label>Digite o nome da Receita</label>
-                            <input class="card-subtitle mb-6" placeholder="Nome da Receita" id="titule-recipe"></input>
-                            <label>Digite os Ingredientes</label>
-                            <input class="card-text" placeholder="Ingredientes" id="ingredients"></input>
-                            <label>Digite a Receita</label>
-                            <textarea class="card-text" placeholder="Modo de fazer" id="post-text"></textarea>
-                            <div class="btn-group" role="group">
-                                <select id="method-post" class="btn btn-success dropdown-toggle">
-                                    <option selected value="publico">Público</option>
-                                    <option value="privado">Privado</option>
-                                </select>
-                                <button id="send-button" class="btn btn-primary" disabled>Publicar</button>
-                            </div>
-                        </div>
-                    </div>
+                    <ul id="post-list" class="list-ul">
+                        <li class="card">
+                            <p class="card-header m">
+                                título da receita
+                            </p>
+                            <p class="card-body">
+                                ingredientes
+                            </p>
+                            <p class="card-body">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus praesentium autem nulla aliquam optio.
+                            </p>
+                        </li>
+                    </ul>
                 </div>
-                <div>
-                    <ul id="post-list" class="list-ul"></ul>
-                </div>
-            </div>
         </div>    
     </container>        
     
@@ -107,5 +147,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="/src/scripts/post/post.js"></script>
+    <script src="/src/scripts/post/user-data.js"></script>
 </body>
 </html>

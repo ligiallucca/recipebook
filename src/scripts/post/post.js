@@ -2,20 +2,21 @@ let database = firebase.database();
 let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
 $(document).ready(function() {
+
     let getPostsBD = () => {
         database.ref('/posts/'+ USER_ID).once('value')
         .then((snapshot)  => {
             snapshot.forEach((childSnapshot)  => {
                 
                 let childKey = childSnapshot.key;
-                let childTitule = childSnapshot.val().titule;
+                let childtitle = childSnapshot.val().title;
                 let childIngredients = childSnapshot.val().ingredients;
                 let childText = childSnapshot.val().text;
                 let childDate = childSnapshot.val().date;
                 let childMethod = childSnapshot.val().postMessage;
                 let childLike = childSnapshot.val().likes;
                 
-                createListPost(childTitule, childIngredients, childText, childDate, childMethod, childLike, childKey);
+                createListPost(childtitle, childIngredients, childText, childDate, childMethod, childLike, childKey);
             })
         })
     }    
@@ -42,24 +43,24 @@ let date = () => {
 let addPostsClick = (event) => {
     event.preventDefault();
     $('#send-button').attr('disabled', true);
-    let titulePost = $("#titule-recipe").val();
+    let titlePost = $("#title-recipe").val();
     let ingredientsPost = $("#ingredients").val();
     let newPost = $("#post-text").val();
     let newDate = date();
-    let methodPost = $("#method-post").val();
+    let methodPost = $("[name=method-post]:checked").val();
     let like = 0;
-    $("#titule-recipe").val("");
+    $("#title-recipe").val("");
     $("#ingredients").val("");
     $("#post-text").val("");
-    let postBD = addPostsBD(titulePost, ingredientsPost, newPost, newDate, methodPost, like);
+    let postBD = addPostsBD(titlePost, ingredientsPost, newPost, newDate, methodPost, like);
     let postKey = postBD.getKey();
     
-    // createListPost(titulePost, ingredientsPost, newPost, newDate, methodPost, postKey)
+    // createListPost(titlePost, ingredientsPost, newPost, newDate, methodPost, postKey)
 }
 
-let addPostsBD = (titulePost, ingredientsPost, text, newDate, methodPost, like) => {
+let addPostsBD = (titlePost, ingredientsPost, text, newDate, methodPost, like) => {
     return database.ref("posts/" + USER_ID).push({
-        titule: titulePost,
+        title: titlePost,
         ingredients: ingredientsPost,
         text: text,
         date: newDate,
@@ -68,14 +69,14 @@ let addPostsBD = (titulePost, ingredientsPost, text, newDate, methodPost, like) 
     });
 }
 
-let createListPost = (titulePost, ingredientsPost, text, date, methodPost, likes, key) => {
+let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes, key) => {
     $("#post-list").prepend(`
     <li>
     <div class="row" data-new-post=${key}>
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"data-titule-id=${key}> ${titulePost} </h5>
+                    <h5 class="card-title"data-title-id=${key}> ${titlePost} </h5>
                     <span class="card-text" data-ingredients-id=${key}> ${ingredientsPost} </span>
                     
                     <div id="modal-show-recipe">
@@ -164,7 +165,7 @@ let createListPost = (titulePost, ingredientsPost, text, date, methodPost, likes
             $(`span[data-text-id=${key}]`).text(newText);
             database.ref("posts/" + USER_ID + "/" + key).
             update({
-                text: titulePost,
+                text: titlePost,
                 text: ingredientsPost,
                 text: newText
             }) 
@@ -178,7 +179,7 @@ $('#filter-posts').change((event) => {
         $("#post-list").html("");
         snapshot.forEach((childSnapshot) => {
             let childKey = childSnapshot.key;
-            let childTitulePost = childSnapshot.val().titule;
+            let childtitlePost = childSnapshot.val().title;
             let childIngredientsPost = childSnapshot.val().ingredients;
             let childData = childSnapshot.val().text;
             let childDate = childSnapshot.val().date;
@@ -186,9 +187,9 @@ $('#filter-posts').change((event) => {
             let childLike = childSnapshot.val().likes;
             
             if (event.target.value === childMethod){
-                createListPost(childTitulePost, childIngredientsPost, childData, childDate, childMethod, childLike, childKey);
+                createListPost(childtitlePost, childIngredientsPost, childData, childDate, childMethod, childLike, childKey);
             } else if(event.target.value === "todos") {
-                createListPost(childTitulePost, childIngredientsPost, childData, childDate, childMethod, childLike, childKey);
+                createListPost(childtitlePost, childIngredientsPost, childData, childDate, childMethod, childLike, childKey);
             }
         })
         
