@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <script src="../config/jquery.js"></script>    
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Vibur" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
@@ -15,7 +17,6 @@
     <title>Post</title>
 </head>
 <body>
-    
     <nav class="navbar navbar-expand-lg navbar-dark color-primary">
         <span class="page-header color-primary" href="#">Recipe Book</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,63 +34,78 @@
     </nav>
     
     <container>
-        <div class="row">
-            <div class="col-md-4 mb-3"></div>
-            <div class="col-md-4 mb-3">
-                    <div class="card-header">
-                        <h1>Publicar e Visualizar Receitas</h1>
-                        <select id="filter-posts" class="btn btn-success dropdown-toggle">
-                            <option selected disabled>Filtrar por:</option>
-                            <option value="todos">Todos</option>
-                            <option value="publico">Postagens Públicas</option>
-                            <option value="privado">Postagens Privadas</option>
-                        </select>
-                        <select id="order-posts" class="btn btn-success dropdown-toggle">
-                            <option selected disabled>Ordenar por:</option>
-                            <option value="order-amount">Maior quantidade de likes</option>
-                            <option value="order-recent">Mais Recentes</option>
-                        </select>
-                    </div>
-                    <div class="write-recipe">
+        <div class="d-flex flex-column align-items-center">
+            <div class="card-header">
+                <h2>Publicar e Visualizar Receitas</h2>
+                <select id="filter-posts" class="btn btn-success dropdown-toggle">
+                    <option selected disabled>Filtrar por:</option>
+                    <option value="todos">Todos</option>
+                    <option value="publico">Postagens Públicas</option>
+                    <option value="privado">Postagens Privadas</option>
+                </select>
+                <select id="order-posts" class="btn btn-success dropdown-toggle">
+                    <option selected disabled>Ordenar por:</option>
+                    <option value="order-amount">Maior quantidade de likes</option>
+                    <option value="order-recent">Mais Recentes</option>
+                </select>
+                
+                <div class="write-recipe">
+                    <div class="card-body">
                         <div class="card-body bg-light d-flex flex-column align-items-center">
                             <h5 class="card-title">Receita</h5>
-                            <textarea id="post-text" type="text" class="card-text" placeholder="Digite a sua Receita"></textarea>
+                            <label>Digite o nome da Receita</label>
+                            <input class="card-subtitle mb-6" placeholder="Nome da Receita" id="titule-recipe"></input>
+                            <label>Digite os Ingredientes</label>
+                            <input class="card-text" placeholder="Ingredientes" id="ingredients"></input>
+                            <label>Digite a Receita</label>
+                            <textarea class="card-text" placeholder="Modo de fazer" id="post-text"></textarea>
                             <div class="btn-group" role="group">
                                 <select id="method-post" class="btn btn-success dropdown-toggle">
                                     <option selected value="publico">Público</option>
                                     <option value="privado">Privado</option>
                                 </select>
                                 <button id="send-button" class="btn btn-primary" disabled>Publicar</button>
-
-                                </div>
+                            </div>
                         </div>
-                    </div>  
-                    <div>
-                        <ul id="post-list" class="list-ul"></ul>
-                    </div>
-            </div>
-<!--                        
-                <div class="col-md-4 mb-3"></div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Receita</h5>
-                        <label>Digite o nome da Receita</label>
-                        <input class="card-subtitle mb-2 text-muted" placeholder="Nome da Receita"></input>
-                        <label>Digite os Ingredientes</label>
-                        <input class="card-text" placeholder="Ingredientes"></input>
-                        <label>Digite a Receita</label>
-                        <textarea class="card-text" placeholder="Modo de fazer"></textarea>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
                     </div>
                 </div>
-            </div> -->
-        </container>
-        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-        <script src="../config/jquery.js"></script>    
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="../bootstrap/js/bootstrap.min.js"></script>
-        <script src="../post/post.js"></script>
-    </body>
-    </html>
+                <div>
+                    <ul id="post-list" class="list-ul"></ul>
+                </div>
+            </div>
+        </div>    
+    </container>        
+    
+    
+    
+    <!-- <div class="write-recipe">
+        <div class="card-body bg-light d-flex flex-column align-items-center">
+            <h5 class="card-title">Receita</h5>
+            <textarea id="post-text" type="text" class="card-text" placeholder="Digite a sua Receita"></textarea>
+            
+        </div>
+    </div>   -->
+    
+    
+    
+    <!-- <div class="col-md-4 mb-3"></div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Receita</h5>
+                <label>Digite o nome da Receita</label>
+                <input class="card-subtitle mb-2 text-muted" placeholder="Nome da Receita"></input>
+                <label>Digite os Ingredientes</label>
+                <input class="card-text" placeholder="Ingredientes"></input>
+                <label>Digite a Receita</label>
+                <textarea class="card-text" placeholder="Modo de fazer"></textarea>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    -->
+    <script src="../config/jquery.js"></script>   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="post.js"></script>
+</body>
+</html>
