@@ -6,7 +6,7 @@ $(document).ready(function() {
 		
 		firebase.auth().signInWithPopup(provider)
 		.then((response) => {
-			window.location = "./src/post/post.html?id="+ response.user.uid;
+			window.location = "post.html?id="+ response.user.uid;
 			
 		}).catch((error) => {
 			let errorCode = error.code;

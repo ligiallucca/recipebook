@@ -73,7 +73,7 @@ $("#exit").click(function (event) {
     event.preventDefault();
 
     firebase.auth().signOut().then(function() {
-        window.location = "/public/src/login.html";
+        window.location = "login.html";
     }).catch(function(error) {
         alert("Erro: " + error);
     });

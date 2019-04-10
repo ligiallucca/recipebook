@@ -27,7 +27,7 @@ $(document).ready(() => {
             username: username,
             birthday: birthday
           })
-          window.location = `/public/src/post/post.html?id=${response.user.uid}`
+          window.location = `post.html?id=${response.user.uid}`
         })  
         .catch((error) => {
           let errorCode = error.code;

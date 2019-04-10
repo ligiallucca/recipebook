@@ -200,7 +200,7 @@ $("#exit").click((event) => {
     event.preventDefault();
     
     firebase.auth().signOut().then(() => {
-        window.location = "../../index.html";
+        window.location = "index.html";
     }).catch((error) => {
         alert("Erro: " + error);
     });

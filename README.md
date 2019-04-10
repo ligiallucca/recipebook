@@ -29,10 +29,10 @@ O projeto foi desenvolvido por: **Ligia de Lucca**, **Vanessa Yoshida** e **Yara
 
 # Definição do Produto
 ## Personas
-![persona](public/src/img/PersonaPatricia.png)
-![persona](public/src/img/PersonaTatiana.png)
-![persona](public/src/img/PersonaCarlos.png)
-![persona](public/src/img/PersonaIzabelle.png)
+![persona](/assets/img/PersonaPatricia.png)
+![persona](/assets/img/PersonaTatiana.png)
+![persona](/assets/img/PersonaCarlos.png)
+![persona](/assets/img/PersonaIzabelle.png)
 
 ## Elementos básicos de uma rede social
 A rede social é uma plataforma que conecta várias pessoas e elas podem compartilhar informações entre si. Na rede social Recipe Book é possível compartilhar seus conhecimentos da área de alimentação, curtir o conhecimento que os outros usuário também postaram ou compartilharam, e também incluimos um tipo de ranking para se tornar algo mais divertido e chamativo. 
@@ -43,7 +43,7 @@ Todos são propensos a serem usuários do Recipe Book, pois se alimentar é algo
 ## Necessidades dos Usuários
 Fizemos uma pesquisa com várias pessoas para descobrir quais seriam seus interesses em uma rede social com o tema de Alimentação. 
 Recebemos várias sugestões do que eles precisariam que tivesse na rede social.
-![sugestoes](public/src/img/Sugestoes.png)
+![sugestoes](/assets/img/Sugestoes.png)
 
 Percebemos que os usuários tem interesse em uma alimentação saudável, ter receitas para poder seguir, dietas e receitas rápidas. Além de poder se comunicar com os outros usuários e poder colaborar para dizer se a receita funciona.
 
