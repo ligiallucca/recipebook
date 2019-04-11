@@ -91,12 +91,31 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
         
             <button
                 type="button"
-                class="btn btn-block btn-primary" 
+                class="btn btn-primary" 
                 data-toggle="modal" 
-                data-target="#modal-delete-post + ${key}">
+                data-target="#modal + ${key}">
                 Excluir
             </button>
-        </div>
+            <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="modal-delete" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modal-delete">Excluir Publicação</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
+            </div>
+            </div>
+            </div>
+            </div> 
+            </div>
 
         <footer class="card-footer">
             <span date=${key}> Postado em ${date} </span>
@@ -134,25 +153,7 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
             </div>
         </div>
     
-        <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="modal-delete" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="modal-delete">Excluir Publicação</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
-        </div>
-        </div>
-        </div>
-        </div> 
+        
 
 
         
