@@ -68,7 +68,6 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
     <li class="card my-4" data-new-post=${key}>
         <h5 class="card-header"> ${titlePost} </h5>
         <p class="card-body" data-ingredients-id=${key}> ${ingredientsPost} </p>
-        <span class="card-text" data-text-id=${key}> ${text} </span>
         
         <div class="container mb-4">
             <button type="button"
