@@ -151,20 +151,13 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
                     </div>
                 </div>
             </div>
-        </div>
-    
-        
-
-
-        
+        </div>        
     </li>`);
 
     $(`button[data-delete-id="${key}"]`).click(() => {
         database.ref("posts/" + USER_ID + "/" + key).remove();
-        // let thisPost = $(`li[data-new-post="${key}"]`);
-        // thisPost.remove();
-        let estePost = $(`button[data-delete-id="${key}"]`);
-        $(estePost).parent().remove();
+        let deletePost = $(`button[data-delete-id="${key}"]`);
+        $(deletePost).parent().remove();
         window.location.reload();   
     });
     
