@@ -8,8 +8,9 @@ O Recipe Book é um projeto proposto pela Laboratória com o intuito de criar um
 * [Autoria](#Autoria)
 * [Definição do Produto](#Definição-do-produto)
 * [Personas](#Personas)
-* [Desenho da interface do Usuário](#Desenho-da-interface-do-Usuário)
+* [Organização](#Organização)
 * [Protótipo](#Protótipo)
+* [Desenho da interface do Usuário](#Desenho-da-interface-do-Usuário)
 * [Teste de Usabilidade](#Teste-de-usabilidade)
 
 # Resumo do Projeto
@@ -25,14 +26,18 @@ Foi utilizado o Framework Bootstrap v4, a biblioteca JQuery para manipulação d
 ## Autoria
 O projeto foi desenvolvido por: **Ligia de Lucca**, **Vanessa Yoshida** e **Yara Oliveira**.
 
-[Link do GitPages](https://teste.github.io/data-lovers/)
-
 # Definição do Produto
 ## Personas
 ![persona](/public/assets/img/PersonaPatricia.png)
 ![persona](/public/assets/img/PersonaTatiana.png)
 ![persona](/public/assets/img/PersonaCarlos.png)
 ![persona](/public/assets/img/PersonaIzabelle.png)
+
+## Organização
+[Link do Trello](https://trello.com/b/Swx0PWon/rede-social)
+
+## Link do protótipo
+[Link do Protótipo](https://marvelapp.com/b402cib/screen/54767651)
 
 ## Elementos básicos de uma rede social
 A rede social é uma plataforma que conecta várias pessoas e elas podem compartilhar informações entre si. Na rede social Recipe Book é possível compartilhar seus conhecimentos da área de alimentação, curtir o conhecimento que os outros usuário também postaram ou compartilharam, e também incluimos um tipo de ranking para se tornar algo mais divertido e chamativo. 
@@ -44,6 +49,8 @@ Todos são propensos a serem usuários do Recipe Book, pois se alimentar é algo
 Fizemos uma pesquisa com várias pessoas para descobrir quais seriam seus interesses em uma rede social com o tema de Alimentação. 
 Recebemos várias sugestões do que eles precisariam que tivesse na rede social.
 ![sugestoes](/public/assets/img/Sugestoes.png)
+[Link da Pesquisa](https://docs.google.com/forms/d/e/1FAIpQLSdnAqPyaXwXD_5K4SqoG13eBtGZb1B5Gg9q3-RVxD_VuEtZmw/viewform?usp=sf_link)
+![Interesse na Rede Social](/public/assets/img/pesquisa.png)
 
 Percebemos que os usuários tem interesse em uma alimentação saudável, ter receitas para poder seguir, dietas e receitas rápidas. Além de poder se comunicar com os outros usuários e poder colaborar para dizer se a receita funciona.
 
@@ -55,9 +62,6 @@ Os usuários entrarão na rede social para ver sobre os temas que eles se intere
 Todos nós precisamos nos alimentar, então a rede social será algo realmente útil, pois todos poderemos compartilhar o que sabemos e aprendermos com o próximo. 
 Os usuários querem poder saber se a receita realmente dá certo, e opniões úteis que os ajudem a decidir qual caminho seguir. 
 Na rede social terá um sistema de Ranking para poder descobrir as melhores receitas.
-
-## Link do protótipo
-[Link do Protótipo](https://marvelapp.com/b402cib/screen/54767651)
 
 ## Testes de Usabilidade
 De acordo com o teste, percebemos que os usuários encontram facilmente os botões para poder publicar uma receita, poder editar ou excluir, pois fizemos botões com a tarefa escrita para ficar mais fácil de identificar qual a tarefa daquele botão. As tarefas estão fáceis de serem executadas.
