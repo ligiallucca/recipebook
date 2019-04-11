@@ -91,7 +91,7 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
         
             <button
                 type="button"
-                class="btn btn-primary" 
+                class="btn btn-block btn-primary" 
                 data-toggle="modal" 
                 data-target="#modal + ${key}">
                 Excluir
@@ -227,91 +227,3 @@ $("#exit").click((event) => {
         alert("Erro: " + error);
     });
 });
-
- 
-    // <div>
-    // <li>
-    // <div class="card" style="width: 30rem;">
-    // <div class="card-body">
-    // <div>
-    // <span data-text-id=${key}>${text}</span>
-    // </div>
-    // <span teste=${key}>${date}</span>
-    // <div>
-    // // <span>
-    // <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
-    // </span>
-    // <span>
-    // <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
-    // </span>
-    // <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}">
-    // Excluir
-    // </button>
-    // </div>
-    // <span>Postado em modo ${methodPost}</span>
-    // <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="modal-delete-post" aria-hidden="true">
-    // <div class="modal-dialog modal-dialog-centered" role="document">
-    // <div class="modal-content">
-    // <div class="modal-header">
-    // <h5 class="modal-title" id="modal-delete-post">Excluir Publicação</h5>
-    // <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    // <span aria-hidden="true">&times;</span>
-    // </button>
-    // </div>
-    // <div class="modal-body">
-    // Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
-    // </div>
-    // <div class="modal-footer">
-    // <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-    // <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
-    // </div>
-    // </div>
-    // </div>
-    // </div>   
-    // </div>
-    // </div>
-    // </li>
-    // </div>
-    // `);
-
-
-    // <span class="card-text" data-text-id=${key}> ${text} </span>
-
-
-
-
-
-    // <div
-    //         class="modal fade"
-    //         id="modal-delete-post + ${key}"
-    //         tabindex="-1"
-    //         role="dialog"
-    //         aria-hidden="true">
-    //         <div class="modal-dialog" role="document">
-    //             <div class="modal-content">
-    //                 <div class="modal-header">
-    //                     <h5 class="modal-title"> Excluir receita </h5>
-    
-    //                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    //                         <span aria-hidden="true">&times;</span>
-    //                     </button>
-    
-    //                 </div>
-    
-    //                 <div class="modal-body"> 
-    //                     <p>Opa! Você tem certeza que deseja excluir esta receita deliciosa?</p>
-    //                 </div>
-    
-    //                 <div class="modal-footer">
-    //                     <button class="btn color-primary"
-    //                         data-delete-id=${key}>
-    //                         Excluir
-    //                     </button>
-    //                     <button class="btn color-secondary pull-right"
-    //                         data-dismiss="modal">
-    //                         Cancelar
-    //                     </button>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
