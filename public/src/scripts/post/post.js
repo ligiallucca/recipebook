@@ -77,7 +77,10 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
         <p class="card-body" data-ingredients-id=${key}> ${ingredientsPost} </p>
         
         <div class="container mb-4">
-            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-recipe-show">
+            <button type="button"
+                class="btn btn-block btn-primary"
+                data-toggle="modal"
+                data-target="#modal-recipe-show">
                 Receita
             </button>
 
@@ -93,10 +96,10 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
             </button>
         
             <button
-                type="button" 
+                type="button"
                 class="btn btn-block btn-primary" 
                 data-toggle="modal" 
-                data-target="#modal + ${key}">
+                data-target="#modal-delete-post-${key}">
                 Excluir
             </button>
         </div>
@@ -105,44 +108,78 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
             <span date=${key}> Postado em ${date} </span>
             <span>- Modo ${methodPost}</span>
         </footer class="card-footer">
-    </li>
-                
-    <div id="modal-show-recipe">
+
+        <div id="modal-show-recipe">
+            <div
+                class="modal fade"
+                id="modal-recipe-show"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="modal-recipe-showTitle"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-recipe-showTitle"> ${titlePost} </h5>
+    
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+    
+                            </div>
+    
+                            <div class="modal-body"> 
+                                <p>${ingredientsPost}</p>
+                                <p>${text}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
         <div
             class="modal fade"
-            id="modal-recipe-show"
+            id="modal-delete-post-${key}"
             tabindex="-1"
             role="dialog"
-            aria-labelledby="modal-recipe-showTitle"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modal-recipe-showTitle"> ${titlePost} </h5>
-
+                        <h5 class="modal-title"> Excluir receita </h5>
+    
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-
-                        </div>
-
-                        <div class="modal-body"> 
-                            <p>${ingredientsPost}</p>
-                            <p>${text}</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
-                        </div>
+    
+                    </div>
+    
+                    <div class="modal-body"> 
+                        <p>Opa! Você tem certeza que deseja excluir esta receita deliciosa?</p>
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button class="btn color-primary"
+                            data-delete-id=${key}>
+                            Excluir
+                        </button>
+                        <button class="btn color-secondary pull-right"
+                            data-dismiss="modal">
+                            Cancelar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </li>`);
 
-    `);
-    
     $(`button[data-delete-id="${key}"]`).click(() => {
         database.ref("posts/" + USER_ID + "/" + key).remove();
-        $(this).parent().remove();
+        let thisPost = $(`li[data-new-post="${key}"]`);
+        thisPost.remove();
         window.location.reload();   
     });
     
@@ -150,7 +187,6 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
         let thisButton = $(`button[data-like-id="${key}"]`);
         let counter = thisButton.data('like-counter');
         counter++;
-        console.log('counter: ', counter);
         database.ref("posts/" + USER_ID + "/" + key).update({
             likes: counter
         });
