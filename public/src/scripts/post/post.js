@@ -162,7 +162,8 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
         database.ref("posts/" + USER_ID + "/" + key).remove();
         // let thisPost = $(`li[data-new-post="${key}"]`);
         // thisPost.remove();
-        $(this).parent().remove();
+        let estePost = $(`button[data-delete-id="${key}"]`);
+        $(estePost).parent().remove();
         window.location.reload();   
     });
     
@@ -179,7 +180,6 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
     
     $(`button[data-edit-id="${key}"]`).click(() => {
         let newText = prompt(`Altere o seu texto aqui: ${text}`);
-        text = newText;
         if (newText === ""){
             alert("Texto não pode ficar vazio")
         } if (newText.length > 0){

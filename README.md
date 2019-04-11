@@ -55,3 +55,9 @@ Os usuários entrarão na rede social para ver sobre os temas que eles se intere
 Todos nós precisamos nos alimentar, então a rede social será algo realmente útil, pois todos poderemos compartilhar o que sabemos e aprendermos com o próximo. 
 Os usuários querem poder saber se a receita realmente dá certo, e opniões úteis que os ajudem a decidir qual caminho seguir. 
 Na rede social terá um sistema de Ranking para poder descobrir as melhores receitas.
+
+## Link do protótipo
+[Link do Protótipo](https://marvelapp.com/b402cib/screen/54767651)
+
+## Testes de Usabilidade
+De acordo com o teste, percebemos que os usuários encontram facilmente os botões para poder publicar uma receita, poder editar ou excluir, pois fizemos botões com a tarefa escrita para ficar mais fácil de identificar qual a tarefa daquele botão. As tarefas estão fáceis de serem executadas.
