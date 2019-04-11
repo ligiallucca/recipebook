@@ -26,13 +26,6 @@ $(document).ready(function() {
         $('#send-button').prop('disabled', $('#post-text').val().length < 1);
     });
     $("#send-button").click(addPostsClick);
-    
-    // $("#post-text").change('keyup', () => {
-    //     while ($("#post-text").scrollHeight > $("#post-text").offsetHeight)
-    //     {
-    //         $("#post-text").rows += 1;
-    //     }
-    // });
 });
 
 let date = () => {
@@ -56,7 +49,7 @@ let addPostsClick = (event) => {
     let postBD = addPostsBD(titlePost, ingredientsPost, newPost, newDate, methodPost, like);
     let postKey = postBD.getKey();
     
-    createListPost(titlePost, ingredientsPost, newPost, newDate, methodPost, like)
+    createListPost(titlePost, ingredientsPost, newPost, newDate, methodPost, like, postKey)
 }
 
 let addPostsBD = (titlePost, ingredientsPost, text, newDate, methodPost, like) => {
@@ -75,13 +68,14 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
     <li class="card my-4" data-new-post=${key}>
         <h5 class="card-header"> ${titlePost} </h5>
         <p class="card-body" data-ingredients-id=${key}> ${ingredientsPost} </p>
+        <span class="card-text" data-text-id=${key}> ${text} </span>
         
         <div class="container mb-4">
             <button type="button"
-                class="btn btn-block btn-primary"
+                class="btn btn-block btn-primary color-primary"
                 data-toggle="modal"
                 data-target="#modal-recipe-show">
-                Receita
+                Ver a Receita Completa
             </button>
 
             <button
@@ -99,7 +93,7 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
                 type="button"
                 class="btn btn-block btn-primary" 
                 data-toggle="modal" 
-                data-target="#modal-delete-post-${key}">
+                data-target="#modal-delete-post + ${key}">
                 Excluir
             </button>
         </div>
@@ -140,46 +134,35 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
             </div>
         </div>
     
-        <div
-            class="modal fade"
-            id="modal-delete-post-${key}"
-            tabindex="-1"
-            role="dialog"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"> Excluir receita </h5>
-    
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-    
-                    </div>
-    
-                    <div class="modal-body"> 
-                        <p>Opa! Você tem certeza que deseja excluir esta receita deliciosa?</p>
-                    </div>
-    
-                    <div class="modal-footer">
-                        <button class="btn color-primary"
-                            data-delete-id=${key}>
-                            Excluir
-                        </button>
-                        <button class="btn color-secondary pull-right"
-                            data-dismiss="modal">
-                            Cancelar
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <div class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-labelledby="modal-delete" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="modal-delete">Excluir Publicação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
         </div>
+        <div class="modal-body">
+        Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
+        </div>
+        </div>
+        </div>
+        </div> 
+
+
+        
     </li>`);
 
     $(`button[data-delete-id="${key}"]`).click(() => {
         database.ref("posts/" + USER_ID + "/" + key).remove();
-        let thisPost = $(`li[data-new-post="${key}"]`);
-        thisPost.remove();
+        // let thisPost = $(`li[data-new-post="${key}"]`);
+        // thisPost.remove();
+        $(this).parent().remove();
         window.location.reload();   
     });
     
@@ -196,16 +179,16 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
     
     $(`button[data-edit-id="${key}"]`).click(() => {
         let newText = prompt(`Altere o seu texto aqui: ${text}`);
+        text = newText;
         if (newText === ""){
             alert("Texto não pode ficar vazio")
         } if (newText.length > 0){
             $(`span[data-text-id=${key}]`).text(newText);
             database.ref("posts/" + USER_ID + "/" + key).
             update({
-                text: titlePost,
-                text: ingredientsPost,
                 text: newText
             }) 
+            window.location.reload(); 
         }
     });
 }
@@ -292,3 +275,42 @@ $("#exit").click((event) => {
 
 
     // <span class="card-text" data-text-id=${key}> ${text} </span>
+
+
+
+
+
+    // <div
+    //         class="modal fade"
+    //         id="modal-delete-post + ${key}"
+    //         tabindex="-1"
+    //         role="dialog"
+    //         aria-hidden="true">
+    //         <div class="modal-dialog" role="document">
+    //             <div class="modal-content">
+    //                 <div class="modal-header">
+    //                     <h5 class="modal-title"> Excluir receita </h5>
+    
+    //                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    //                         <span aria-hidden="true">&times;</span>
+    //                     </button>
+    
+    //                 </div>
+    
+    //                 <div class="modal-body"> 
+    //                     <p>Opa! Você tem certeza que deseja excluir esta receita deliciosa?</p>
+    //                 </div>
+    
+    //                 <div class="modal-footer">
+    //                     <button class="btn color-primary"
+    //                         data-delete-id=${key}>
+    //                         Excluir
+    //                     </button>
+    //                     <button class="btn color-secondary pull-right"
+    //                         data-dismiss="modal">
+    //                         Cancelar
+    //                     </button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
