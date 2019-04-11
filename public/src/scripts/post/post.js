@@ -56,7 +56,7 @@ let addPostsClick = (event) => {
     let postBD = addPostsBD(titlePost, ingredientsPost, newPost, newDate, methodPost, like);
     let postKey = postBD.getKey();
     
-    // createListPost(titlePost, ingredientsPost, newPost, newDate, methodPost, postKey)
+    createListPost(titlePost, ingredientsPost, newPost, newDate, methodPost, like)
 }
 
 let addPostsBD = (titlePost, ingredientsPost, text, newDate, methodPost, like) => {
