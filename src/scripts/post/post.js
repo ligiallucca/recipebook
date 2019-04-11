@@ -20,6 +20,7 @@ $(document).ready(function() {
             })
         })
     }    
+    getPostsBD()
     
     $('#post-text').on('keyup', () => {
         $('#send-button').prop('disabled', $('#post-text').val().length < 1);
@@ -71,74 +72,72 @@ let addPostsBD = (titlePost, ingredientsPost, text, newDate, methodPost, like) =
 
 let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes, key) => {
     $("#post-list").prepend(`
-    <li>
-    <div class="row" data-new-post=${key}>
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"data-title-id=${key}> ${titlePost} </h5>
-                    <span class="card-text" data-ingredients-id=${key}> ${ingredientsPost} </span>
-                    
-                    <div id="modal-show-recipe">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-recipe-show">
-                            Receita
-                        </button>
-                        
-                        <div class="modal fade" id="modal-recipe-show" tabindex="-1" role="dialog" aria-labelledby="modal-recipe-showTitle" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modal-recipe-showTitle">Receita</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body"> 
-                                        ${text}
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <li class="card my-4" data-new-post=${key}>
+        <h5 class="card-header"> ${titlePost} </h5>
+        <p class="card-body" data-ingredients-id=${key}> ${ingredientsPost} </p>
+        
+        <div class="container mb-4">
+            <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-recipe-show">
+                Receita
+            </button>
 
-                    <button data-like-id=${key} data-like-counter=${likes || 0} class="btn btn-primary">${likes} Like</button>
-                    <span>
-                    <button class="btn btn-primary" data-edit-id=${key}>Editar</button>
-                    </span>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal + ${key}"> Excluir </button>
-                </div>
-                <div>
-                    <span date=${key}> Postado em ${date} </span>
-                    <span>- Modo ${methodPost}</span>
-                </div>
+            <button
+                data-like-id=${key}
+                data-like-counter=${likes || 0}
+                class="btn btn-block btn-primary">
+                ${likes} Like
+            </button>
+            
+            <button class="btn btn-block btn-primary" data-edit-id=${key}>
+                Editar
+            </button>
+        
+            <button
+                type="button" 
+                class="btn btn-block btn-primary" 
+                data-toggle="modal" 
+                data-target="#modal + ${key}">
+                Excluir
+            </button>
+        </div>
+
+        <footer class="card-footer">
+            <span date=${key}> Postado em ${date} </span>
+            <span>- Modo ${methodPost}</span>
+        </footer class="card-footer">
+    </li>
                 
+    <div id="modal-show-recipe">
+        <div
+            class="modal fade"
+            id="modal-recipe-show"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="modal-recipe-showTitle"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-recipe-showTitle"> ${titlePost} </h5>
 
-                <div aria-labelledby="modal-delete-post" class="modal fade" id="modal + ${key}" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modal-delete-post">Excluir Publicação</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Deseja mesmo excluir esta publicação? Depois de excluido não é possível recuperar as informações novamente.
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary" btn-ok  data-delete-id=${key}>Apagar Publicação</button>
-                            </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
                         </div>
-                    </div>  
-                </div>        
-            </div>            
+
+                        <div class="modal-body"> 
+                            <p>${ingredientsPost}</p>
+                            <p>${text}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                        </div>
+                </div>
+            </div>
         </div>
     </div>
-    </li>
+
     `);
     
     $(`button[data-delete-id="${key}"]`).click(() => {
@@ -148,13 +147,15 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
     });
     
     $(`button[data-like-id="${key}"]`).click(() => {
-        let counter = $(this).data("like-counter");
-        counter += 1;
-        $(this).data("like-counter", counter);
-        $(this).html(counter + " likes");
+        let thisButton = $(`button[data-like-id="${key}"]`);
+        let counter = thisButton.data('like-counter');
+        counter++;
+        console.log('counter: ', counter);
         database.ref("posts/" + USER_ID + "/" + key).update({
             likes: counter
-        }) 
+        });
+        thisButton.html(counter + " likes");
+        thisButton.data('like-counter', counter);
     });
     
     $(`button[data-edit-id="${key}"]`).click(() => {
