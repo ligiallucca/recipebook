@@ -54,7 +54,7 @@ Recebemos várias sugestões do que eles precisariam que tivesse na rede social.
 [Link da Pesquisa](https://docs.google.com/forms/d/e/1FAIpQLSdnAqPyaXwXD_5K4SqoG13eBtGZb1B5Gg9q3-RVxD_VuEtZmw/viewform?usp=sf_link)
 
 # Gráfico
-[Interesse na Rede Social](https://github.com/ligiallucca/recipebook/blob/master/public/assets/img/pesquisa.png)
+![Interesse na Rede Social](https://github.com/ligiallucca/recipebook/blob/master/public/assets/img/pesquisa.png)
 
 
 Percebemos que os usuários tem interesse em uma alimentação saudável, ter receitas para poder seguir, dietas e receitas rápidas. Além de poder se comunicar com os outros usuários e poder colaborar para dizer se a receita funciona.
