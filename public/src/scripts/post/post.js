@@ -1,74 +1,63 @@
-let database = firebase.database();
-let USER_ID = window.location.search.match(/\?id=(.*)/)[1];
+const database = firebase.database();
+const USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 
 $(document).ready(function() {
+    getPostsBD();
 
-    let getPostsBD = () => {
-        database.ref('/posts/'+ USER_ID).once('value')
-        .then((snapshot)  => {
-            snapshot.forEach((childSnapshot)  => {
-                
-                let childKey = childSnapshot.key;
-                let childtitle = childSnapshot.val().title;
-                let childIngredients = childSnapshot.val().ingredients;
-                let childText = childSnapshot.val().text;
-                let childDate = childSnapshot.val().date;
-                let childMethod = childSnapshot.val().postMessage;
-                let childLike = childSnapshot.val().likes;
-                
-                createListPost(childtitle, childIngredients, childText, childDate, childMethod, childLike, childKey);
-            })
-        })
-    }    
-    getPostsBD()
-    
     $('#post-text').on('keyup', () => {
         $('#send-button').prop('disabled', $('#post-text').val().length < 1);
     });
+
     $("#send-button").click(addPostsClick);
 });
 
-let date = () => {
-    let dNow = new Date();
-    let localdate = dNow.getDate() + '/' + (dNow.getMonth() + 1) + '/' + dNow.getFullYear() + ' ' + dNow.getHours() + ':' + dNow.getMinutes();
-    return localdate;
+const getPostsBD = () => {
+    database.ref(`posts/${USER_ID}`).once('value')
+    .then(snapshot => {
+        snapshot.forEach((childSnapshot)  => {
+            const key = childSnapshot.key;
+            const data = childSnapshot.val();
+            createListPost(data, key);
+        })
+    })
 }
 
-let addPostsClick = (event) => {
+const date = () => {
+    const dNow = new Date();
+    return `${dNow.getDate()}/${dNow.getMonth() + 1}/${dNow.getFullYear()} ${dNow.getHours()}:${dNow.getMinutes()}`;
+}
+
+const addPostsClick = event => {
     event.preventDefault();
+    const postData = {
+      title: $("#title-recipe").val(),
+      ingredients: $("#title-recipe").val(),
+      text: ("#post-text").val(),
+      data: date(),
+      postMessage: $("[name=method-post]:checked").val(),
+      like: 0
+    };
+    const postBD = addPostsBD(postData);
+    const postKey = postBD.getKey();
+
+    createListPost(postData, postKey)
+
     $('#send-button').attr('disabled', true);
-    let titlePost = $("#title-recipe").val();
-    let ingredientsPost = $("#ingredients").val();
-    let newPost = $("#post-text").val();
-    let newDate = date();
-    let methodPost = $("[name=method-post]:checked").val();
-    let like = 0;
     $("#title-recipe").val("");
     $("#ingredients").val("");
     $("#post-text").val("");
-    let postBD = addPostsBD(titlePost, ingredientsPost, newPost, newDate, methodPost, like);
-    let postKey = postBD.getKey();
-    
-    createListPost(titlePost, ingredientsPost, newPost, newDate, methodPost, like, postKey)
 }
 
-let addPostsBD = (titlePost, ingredientsPost, text, newDate, methodPost, like) => {
-    return database.ref("posts/" + USER_ID).push({
-        title: titlePost,
-        ingredients: ingredientsPost,
-        text: text,
-        date: newDate,
-        postMessage: methodPost,
-        likes: like
-    });
+const addPostsBD = (data) => {
+    return database.ref(`posts/${USER_ID}`).push({...data});
 }
 
-let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes, key) => {
+const createListPost = (postData, key) => {
     $("#post-list").prepend(`
     <li class="card my-4" data-new-post=${key}>
-        <h5 class="card-header"> ${titlePost} </h5>
-        <p class="card-body" data-ingredients-id=${key}> ${ingredientsPost} </p>
-        
+        <h5 class="card-header"> ${postData.title} </h5>
+        <p class="card-body" data-ingredients-id=${key}> ${postData.ingredients} </p>
+
         <div class="container mb-4">
             <button type="button"
                 class="btn btn-block btn-primary color-primary"
@@ -79,19 +68,19 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
 
             <button
                 data-like-id=${key}
-                data-like-counter=${likes || 0}
+                data-like-counter=${postData.like || 0}
                 class="btn btn-block btn-primary">
-                ${likes} Like
+                ${postData.like} Like
             </button>
-            
+
             <button class="btn btn-block btn-primary" data-edit-id=${key}>
                 Editar
             </button>
-        
+
             <button
                 type="button"
-                class="btn btn-block btn-primary" 
-                data-toggle="modal" 
+                class="btn btn-block btn-primary"
+                data-toggle="modal"
                 data-target="#modal + ${key}">
                 Excluir
             </button>
@@ -113,12 +102,12 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
             </div>
             </div>
             </div>
-            </div> 
+            </div>
             </div>
 
         <footer class="card-footer">
-            <span date=${key}> Postado em ${date} </span>
-            <span>- Modo ${methodPost}</span>
+            <span date=${key}> Postado em ${postData.date} </span>
+            <span>- Modo ${postData.postMessage}</span>
         </footer class="card-footer">
 
         <div id="modal-show-recipe">
@@ -132,17 +121,17 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modal-recipe-showTitle"> ${titlePost} </h5>
-    
+                            <h5 class="modal-title" id="modal-recipe-showTitle"> ${postData.title} </h5>
+
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-    
+
                             </div>
-    
-                            <div class="modal-body"> 
-                                <p>${ingredientsPost}</p>
-                                <p>${text}</p>
+
+                            <div class="modal-body">
+                                <p>${postData.ingredients}</p>
+                                <p>${postData.text}</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
@@ -150,72 +139,58 @@ let createListPost = (titlePost, ingredientsPost, text, date, methodPost, likes,
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </li>`);
 
     $(`button[data-delete-id="${key}"]`).click(() => {
-        database.ref("posts/" + USER_ID + "/" + key).remove();
-        let deletePost = $(`button[data-delete-id="${key}"]`);
-        $(deletePost).parent().remove();
-        window.location.reload();   
+        database.ref(`posts/${USER_ID}/${key}`).remove();
+        $(this).parent().remove();
+        window.location.reload(); //precisava atualizar a tela tem reload
     });
-    
+
     $(`button[data-like-id="${key}"]`).click(() => {
-        let thisButton = $(`button[data-like-id="${key}"]`);
-        let counter = thisButton.data('like-counter');
-        counter++;
-        database.ref("posts/" + USER_ID + "/" + key).update({
-            likes: counter
+        const counter = parseInt($(this).data('like-counter')) + 1;
+        database.ref(`posts/${USER_ID}/${key}`).update({
+            like: counter
         });
-        thisButton.html(counter + " likes");
-        thisButton.data('like-counter', counter);
+        $(this).html(counter + " likes");
+        $(this).data('like-counter', counter);
     });
-    
+
     $(`button[data-edit-id="${key}"]`).click(() => {
-        let newText = prompt(`Altere o seu texto aqui: ${text}`);
+        const newText = prompt(`Altere o seu texto aqui: ${text}`);
         if (newText === ""){
             alert("Texto não pode ficar vazio")
-        } if (newText.length > 0){
+        } else if (newText.length > 0){
             $(`span[data-text-id=${key}]`).text(newText);
-            database.ref("posts/" + USER_ID + "/" + key).
-            update({
-                text: newText
-            }) 
-            window.location.reload(); 
+            database.ref(`posts/${USER_ID}/${key}`).update({text: newText});
+            window.location.reload();
         }
     });
 }
 
 $('#filter-posts').change((event) => {
-    database.ref('/posts/'+ USER_ID).once('value')
-    .then((snapshot) => {
+    database.ref(`posts/${USER_ID}`).once('value')
+    .then(snapshot => {
         $("#post-list").html("");
-        snapshot.forEach((childSnapshot) => {
-            let childKey = childSnapshot.key;
-            let childtitlePost = childSnapshot.val().title;
-            let childIngredientsPost = childSnapshot.val().ingredients;
-            let childData = childSnapshot.val().text;
-            let childDate = childSnapshot.val().date;
-            let childMethod = childSnapshot.val().postMessage;
-            let childLike = childSnapshot.val().likes;
-            
+        snapshot.forEach(childSnapshot => {
+            const key = childSnapshot.key;
+            const postData = childSnapshot.val();
+
             if (event.target.value === childMethod){
-                createListPost(childtitlePost, childIngredientsPost, childData, childDate, childMethod, childLike, childKey);
+                createListPost(postData, key);
             } else if(event.target.value === "todos") {
-                createListPost(childtitlePost, childIngredientsPost, childData, childDate, childMethod, childLike, childKey);
+                createListPost(postData, key);
             }
         })
-        
+
     });
-    
+
 })
 
 $("#exit").click((event) => {
     event.preventDefault();
-    
-    firebase.auth().signOut().then(() => {
-        window.location = "index.html";
-    }).catch((error) => {
-        alert("Erro: " + error);
-    });
+    firebase.auth().signOut()
+      .then(() => window.location = "index.html")
+      .catch(error => alert("Erro: " + error));
 });
