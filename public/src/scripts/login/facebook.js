@@ -2,8 +2,8 @@ $(document).ready(function() {
 	$("#facebook-button").click((event) => {
 		event.preventDefault();
 		
-		let provider = new firebase.auth.FacebookAuthProvider();
-		
+		let provider = new firebase.auth.FacebookAuthProvider().addScope('user_friends');
+
 		firebase.auth().signInWithPopup(provider)
 		.then((response) => {
 			window.location = "post.html?id="+ response.user.uid;
