@@ -2,17 +2,23 @@ $(document).ready(function() {
 	$("#facebook-button").click((event) => {
 		event.preventDefault();
 		
-		let provider = new firebase.auth.FacebookAuthProvider().addScope('user_friends');
+		const provider = new firebase.auth.FacebookAuthProvider().addScope('user_friends');
+		const url = `https://graph.facebook.com/v2.11/`;
 
 		firebase.auth().signInWithPopup(provider)
 		.then((response) => {
-			window.location = "post.html?id="+ response.user.uid;
-			
+			const access_token = "";
+			console.log("login ", response);
+			fetch (`${url}/${response.user.uid}/?fields=friends{name,id}&access_token=${access_token}`)
+			.then ((response2) => { 
+				console.log("friends ", response2)
+				// window.location = "post.html?id="+ response.user.uid;
+			})
 		}).catch((error) => {
-			let errorCode = error.code;
-			let errorMessage = error.message;
-			let email = error.email;
-			let credential = error.credential;
+			const errorCode = error.code;
+			const errorMessage = error.message;
+			const email = error.email;
+			const credential = error.credential;
 			alert(errorCode, errorMessage, email, credential);
 		});
 	})
